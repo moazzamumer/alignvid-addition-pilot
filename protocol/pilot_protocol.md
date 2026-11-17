@@ -26,7 +26,9 @@ Does the pipeline (data → generation → frame extraction → human labels →
 
 ## 3. Data
 
-Addition subset count from `meta.json`: ___ (sub-categories: object ___, appearance ___, element ___).
+Addition subset count from `meta.json`: 129 (sub-categories: object 73, appearance 23, element 33). Index of the 73 addition/object samples: `data/addition_object_index.csv` (built by `tools/inspect_meta.py` on 2026-11-18). Domains within addition/object: human 20, animal 16, object 12, animation 10, plant 6, vehicle 4, architecture 3, building 2. Image source: real 62, animation 10, generated 1. All 73 reference images present on disk.
+
+Metadata quirks noted before selection: `sample_121` (human) has prompt "The woman gradually disappeared as she crouched down" but key "duck egg appears" — prompt/key mismatch, excluded from consideration. `sample_199` has one question with an empty category string. `sample_6` (object) describes drifting dust, not a placeable object.
 
 ### 3.1 Selection rules (written before selecting)
 1. `main-category == addition` and `sub-category == object`. (Note: in `meta.json` the field `type` is the image source — real / animation / generated — not the edit type.)
