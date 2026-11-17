@@ -36,16 +36,24 @@ Metadata quirks noted before selection: `sample_121` (human) has prompt "The wom
 3. Three straightforward cases: medium/large object, uncluttered target area.
 4. Two difficult cases: one small object; one gradual ("grows"/"appears") or contact-with-subject prompt.
 5. Exclude: object moving across the frame; object already present in the reference (checked by eye); near-duplicate scenes.
+6. Operational definitions for rule 5 (added 2026-11-18, before selection): "moving across the frame" = the prompt's main verb describes translation into or across the frame, or entry from an edge (walks in, flies in, darts out, slides in, drifts across, enters from the left). Prompts whose verb is "appears", "sits", "stands", "leans", "grows", "sprouts" at a named place are eligible. "Small object" = would occupy well under ~5 % of the frame at the named location. "Gradual" = prompt uses grows / sprouts / emerges / gradually.
+7. Tie-breaks when more candidates than slots: prefer real photographs over animation or generated images; prefer prompts where the paper's own question set includes an `object_presence` or `spatial_relationship` question (so the original protocol can be compared later); prefer distinct domains across the five.
 
 ### 3.2 Chosen samples
 
+Selected 2026-11-18 by applying rules 1–7 to `data/addition_object_index.csv`, before any video was generated. Shortlist of 13 candidates reviewed on a contact sheet (`tools/contact_sheet.py`); source presence confirmed absent by eye by the author (M. Umer Gondal) for all five on 2026-11-18.
+
 | # | id | prompt | key | difficulty | source presence (by eye) | justification |
 |---|---|---|---|---|---|---|
-| 1 | | | | easy | no | |
-| 2 | | | | easy | no | |
-| 3 | | | | easy | no | |
-| 4 | | | | hard (small) | no | |
-| 5 | | | | hard (gradual/contact) | no | |
+| 1 | sample_240 | An ornate, antique world globe on a wooden stand, reminiscent of the Victorian era, appears next to the sofa. | antique world globe appears | easy | no | Indoor, static scene; clear empty floor beside the sofa; medium object; domain object; real photo. |
+| 2 | sample_188 | A person sits down in the empty chair at the table, picks up the book, and begins to read. | person sits down; begins to read | easy (contact) | no | Chair, table and book visible and unoccupied; fixed location; object must touch an existing subject; domain human; real photo. |
+| 3 | sample_208 | A majestic stag with large antlers appears at the edge of the frozen lake, its breath visible in the cold air. | majestic stag appears; breath visible | easy | no | Medium-large animal in a static landscape; "edge of the lake" is ambiguous between near and far bank, so this is the designated multiple-valid-regions case; domain animal; real photo. Note: the lake in the reference is not frozen (autumn); recorded as a prompt/image mismatch to watch. |
+| 4 | sample_237 | A small Celtic cairn (a stack of balanced stones) appears at the edge of the water on the bank. | Celtic cairn appears; stack of stones | hard (small) | no | Object would be very small on the far bank: the known false-negative mode for both the VLM judge and the detector; domain object; real photo. |
+| 5 | sample_116 | A young tree sprouts at the front of the house and grows quickly until it stands full-height in front of the facade. | tree grows; in front of house | hard (gradual) | no | Explicit location on bare ground in front of the facade; "sprouts and grows" tests the expected-appearance window; large final object; domain architecture; real photo. |
+
+Named alternates, in case a chosen sample proves unusable (to be invoked only via §9 Deviations): easy → `sample_236` (red barn on the hill crest); small → `sample_245` (Fabergé egg in the empty shopping cart); gradual → `sample_102` (cactus sprouts next to the mushroom; gradual and contact-adjacent at once).
+
+Shortlisted and rejected after viewing the reference image: `sample_228` (trees already in front of the building), `sample_131` (middle egg already has sprouts; animation image), `sample_239` (cable car "behind" the tram would be occluded), `sample_243` (pumpkins fill the frame, so the intended region is the whole frame), `sample_230` (crowded museum, non-static scene; fallback only).
 
 ### 3.3 No-edit control prompts (optional arm; written now)
 
