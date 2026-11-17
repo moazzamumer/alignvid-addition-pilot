@@ -1,0 +1,3 @@
+[submodule "external/AlignVid"]
+	path = external/AlignVid
+	url = https://github.com/LAW1223/AlignVid

@@ -43,7 +43,8 @@ data/**/*.jpeg
 !data/regions/*_box.jpg
 outputs/**/*.mp4
 outputs/**/frames/
-external/
+external/*/
+!external/AlignVid
 *.safetensors
 *.ckpt
 *.pt
