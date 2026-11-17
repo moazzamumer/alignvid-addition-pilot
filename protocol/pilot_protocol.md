@@ -20,7 +20,7 @@ Does the pipeline (data → generation → frame extraction → human labels →
 |---|---|
 | AlignVid repo commit | `9f3e48d76e19fa44e7ca93f0466ca92fb24775c2` (github.com/LAW1223/AlignVid, single commit "Initial release of AlignVid", 2026-05-29), added as submodule `external/AlignVid` on 2026-11-18 |
 | AlignVid paper version | arXiv 2512.01334 v2 (2026-05-28) |
-| OmitI2V snapshot | HF `AIPeanutman/OmitI2V`, downloaded YYYY-MM-DD, `meta.json` sha256 `_______` |
+| OmitI2V snapshot | HF `AIPeanutman/OmitI2V`, downloaded 2026-11-18 via `huggingface_hub` 2.4.0 snapshot_download (370 files, 273 MB, 367 records), `meta.json` sha256 `abc7099ba16ccb9f48d24b259f2343c48dc447f9907c511008df28a18723937d` |
 | Backbone | FramePack-F1 (`lllyasviel/FramePack_F1_I2V_HY_20250503`) |
 | DyMoS | not used; repo github.com/shoxedqBbB/DyMoS (noted: includes Wan2.1 code as of 2026-11) |
 
@@ -29,7 +29,7 @@ Does the pipeline (data → generation → frame extraction → human labels →
 Addition subset count from `meta.json`: ___ (sub-categories: object ___, appearance ___, element ___).
 
 ### 3.1 Selection rules (written before selecting)
-1. `type == addition` and `sub-category == object`.
+1. `main-category == addition` and `sub-category == object`. (Note: in `meta.json` the field `type` is the image source — real / animation / generated — not the edit type.)
 2. Prompt names one physical object with an explicit or scene-implied location.
 3. Three straightforward cases: medium/large object, uncluttered target area.
 4. Two difficult cases: one small object; one gradual ("grows"/"appears") or contact-with-subject prompt.
