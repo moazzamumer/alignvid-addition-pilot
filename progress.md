@@ -2,4 +2,4 @@
 
 | date | step | note |
 |---|---|---|
-| 2026-11-18 | A1 | Repo created and pushed (private): https://github.com/moazzamumer/alignvid-addition-pilot. First commit hash recorded below once committed. |
+| 2026-11-18 | A1 | Repo created and pushed (private): https://github.com/moazzamumer/alignvid-addition-pilot. First commit `f2cfc08` "pre-registration scaffold". |
