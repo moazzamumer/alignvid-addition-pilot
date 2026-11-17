@@ -1,0 +1,69 @@
+# ---- Local-only working material (not pushed) ----
+CLAUDE.md
+.claude/
+docs/
+progress_notes/
+reference/prof_yang_reply_*.txt
+reference/emails/
+*.eml
+reference/deep_research_report.md
+reference/review_findings.md
+reference/research_notes/
+reference/*_notes.md
+notes/
+scratch/
+
+# ---- Secrets / credentials ----
+.env
+.env.*
+*.key
+*.pem
+secrets/
+kaggle.json
+hf_token*
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+venv-*/
+gen/
+measure-env/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+
+# ---- Large / regenerable project data ----
+data/OmitI2V/
+data/**/*.png
+data/**/*.jpg
+data/**/*.jpeg
+!data/regions/*_box.jpg
+outputs/**/*.mp4
+outputs/**/frames/
+external/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.bin
+
+# ---- LaTeX build files ----
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
