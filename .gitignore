@@ -69,3 +69,4 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+data/regions/annotations/*_discarded_*
