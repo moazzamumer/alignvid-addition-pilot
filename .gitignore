@@ -45,6 +45,7 @@ data/**/*.jpeg
 !data/regions/*_box.jpg
 outputs/**/*.mp4
 outputs/**/frames/
+outputs/test/
 external/*/
 !external/AlignVid
 *.safetensors
