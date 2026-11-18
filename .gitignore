@@ -28,6 +28,7 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
+.venv-measure/
 venv/
 venv-*/
 gen/
@@ -70,3 +71,4 @@ Thumbs.db
 .vscode/
 .idea/
 data/regions/annotations/*_discarded_*
+models/

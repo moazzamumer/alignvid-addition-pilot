@@ -1,0 +1,316 @@
+{
+ "created": "2026-11-18T21:15:25",
+ "model": "models/grounding-dino-tiny",
+ "device": "cpu",
+ "model_load_seconds": 0.9,
+ "torch": "2.15.0+cpu",
+ "transformers": "5.23.0",
+ "python": "3.11.2",
+ "pairs": [
+  [
+   0.35,
+   0.25
+  ],
+  [
+   0.45,
+   0.35
+  ]
+ ],
+ "dev": [
+  [
+   "sample_237",
+   "boat",
+   "stack of stones"
+  ],
+  [
+   "sample_239",
+   "tram",
+   "cable car"
+  ],
+  [
+   "sample_102",
+   "mushroom",
+   "cactus"
+  ]
+ ],
+ "results": {
+  "sample_237": {
+   "image_path": "addition/object/object/sample_237.jpg",
+   "size": [
+    1920,
+    1080
+   ],
+   "runs": [
+    {
+     "query": "boat",
+     "truth": "present",
+     "box_thr": 0.35,
+     "text_thr": 0.25,
+     "n": 1,
+     "max_score": 0.85,
+     "dets": [
+      {
+       "box": [
+        1217.4,
+        751.5,
+        1597.0,
+        794.8
+       ],
+       "score": 0.85,
+       "label": "boat"
+      }
+     ],
+     "seconds": 11.31
+    },
+    {
+     "query": "boat",
+     "truth": "present",
+     "box_thr": 0.45,
+     "text_thr": 0.35,
+     "n": 1,
+     "max_score": 0.85,
+     "dets": [
+      {
+       "box": [
+        1217.4,
+        751.5,
+        1597.0,
+        794.8
+       ],
+       "score": 0.85,
+       "label": "boat"
+      }
+     ],
+     "seconds": 10.17
+    },
+    {
+     "query": "stack of stones",
+     "truth": "absent",
+     "box_thr": 0.35,
+     "text_thr": 0.25,
+     "n": 2,
+     "max_score": 0.423,
+     "dets": [
+      {
+       "box": [
+        129.8,
+        22.7,
+        775.9,
+        722.6
+       ],
+       "score": 0.412,
+       "label": "stack"
+      },
+      {
+       "box": [
+        127.3,
+        23.3,
+        776.0,
+        722.6
+       ],
+       "score": 0.423,
+       "label": "stones"
+      }
+     ],
+     "seconds": 9.66
+    },
+    {
+     "query": "stack of stones",
+     "truth": "absent",
+     "box_thr": 0.45,
+     "text_thr": 0.35,
+     "n": 0,
+     "max_score": null,
+     "dets": [],
+     "seconds": 10.63
+    }
+   ]
+  },
+  "sample_239": {
+   "image_path": "addition/object/vehicle/sample_239.jpg",
+   "size": [
+    1280,
+    1280
+   ],
+   "runs": [
+    {
+     "query": "tram",
+     "truth": "present",
+     "box_thr": 0.35,
+     "text_thr": 0.25,
+     "n": 1,
+     "max_score": 0.717,
+     "dets": [
+      {
+       "box": [
+        514.7,
+        284.1,
+        870.7,
+        865.7
+       ],
+       "score": 0.717,
+       "label": "tram"
+      }
+     ],
+     "seconds": 6.54
+    },
+    {
+     "query": "tram",
+     "truth": "present",
+     "box_thr": 0.45,
+     "text_thr": 0.35,
+     "n": 1,
+     "max_score": 0.717,
+     "dets": [
+      {
+       "box": [
+        514.7,
+        284.1,
+        870.7,
+        865.7
+       ],
+       "score": 0.717,
+       "label": "tram"
+      }
+     ],
+     "seconds": 6.22
+    },
+    {
+     "query": "cable car",
+     "truth": "absent",
+     "box_thr": 0.35,
+     "text_thr": 0.25,
+     "n": 1,
+     "max_score": 0.841,
+     "dets": [
+      {
+       "box": [
+        513.4,
+        284.1,
+        870.9,
+        866.6
+       ],
+       "score": 0.841,
+       "label": "cable car"
+      }
+     ],
+     "seconds": 6.63
+    },
+    {
+     "query": "cable car",
+     "truth": "absent",
+     "box_thr": 0.45,
+     "text_thr": 0.35,
+     "n": 1,
+     "max_score": 0.841,
+     "dets": [
+      {
+       "box": [
+        513.4,
+        284.1,
+        870.9,
+        866.6
+       ],
+       "score": 0.841,
+       "label": "cable car"
+      }
+     ],
+     "seconds": 6.7
+    }
+   ]
+  },
+  "sample_102": {
+   "image_path": "addition/object/plant/sample_102.jpg",
+   "size": [
+    1920,
+    1318
+   ],
+   "runs": [
+    {
+     "query": "mushroom",
+     "truth": "present",
+     "box_thr": 0.35,
+     "text_thr": 0.25,
+     "n": 1,
+     "max_score": 0.939,
+     "dets": [
+      {
+       "box": [
+        759.6,
+        412.7,
+        1255.0,
+        1091.1
+       ],
+       "score": 0.939,
+       "label": "mushroom"
+      }
+     ],
+     "seconds": 9.4
+    },
+    {
+     "query": "mushroom",
+     "truth": "present",
+     "box_thr": 0.45,
+     "text_thr": 0.35,
+     "n": 1,
+     "max_score": 0.939,
+     "dets": [
+      {
+       "box": [
+        759.6,
+        412.7,
+        1255.0,
+        1091.1
+       ],
+       "score": 0.939,
+       "label": "mushroom"
+      }
+     ],
+     "seconds": 11.29
+    },
+    {
+     "query": "cactus",
+     "truth": "absent",
+     "box_thr": 0.35,
+     "text_thr": 0.25,
+     "n": 1,
+     "max_score": 0.812,
+     "dets": [
+      {
+       "box": [
+        759.1,
+        411.6,
+        1255.5,
+        1091.5
+       ],
+       "score": 0.812,
+       "label": "cactus"
+      }
+     ],
+     "seconds": 10.07
+    },
+    {
+     "query": "cactus",
+     "truth": "absent",
+     "box_thr": 0.45,
+     "text_thr": 0.35,
+     "n": 1,
+     "max_score": 0.812,
+     "dets": [
+      {
+       "box": [
+        759.1,
+        411.6,
+        1255.5,
+        1091.5
+       ],
+       "score": 0.812,
+       "label": "cactus"
+      }
+     ],
+     "seconds": 9.76
+    }
+   ]
+  }
+ }
+}

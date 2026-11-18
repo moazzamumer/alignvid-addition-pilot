@@ -145,8 +145,22 @@ Rubric: `protocol/label_rubric.md` (frozen with this file). Labelling is blind t
 
 ## 8. Detector settings (fixed on dev examples, not pilot samples)
 
-Grounding DINO model: ______; box threshold ___; text threshold ___; frames per video 16; present if detected in ≥ k = ___ frames; dev images used: ______.
-VLM: none / Qwen2.5-VL-7B stand-in (circle one). If used, per-question answers only; never pooled with the paper's protocol.
+Fixed 2026-11-18 on three OmitI2V reference images that are not pilot samples, before any video was generated (`measure/dev_thresholds.py`; outputs in `data/detector_dev/`). Each image was queried for an object visibly present and for the object its own prompt would add, which is absent.
+
+| Item | Value |
+|---|---|
+| Model | Grounding DINO tiny, HF `IDEA-Research/grounding-dino-tiny`, `model.safetensors` sha256 prefix `1a2412ef99bd74bc`; transformers 5.x, CPU |
+| Box / text threshold | **0.45 / 0.35** (0.35 / 0.25 produced two spurious boxes for "stack of stones" on sample_237; 0.45 / 0.35 produced none, with the present objects still detected at 0.72–0.94) |
+| Frames per video | 16 (`f00..f15`) |
+| Detector presence | detected in ≥ **k = 4** of 16 frames |
+| Detector onset | first frame with a detection; detector persistence = detected frames / frames from onset to f15 |
+| Detector placement | highest-scoring box per frame vs. the union of §4 regions, §4.1 rule, on the frame with the highest score |
+| Pre-existing check | the detector is also run on the reference image with the same query; a generated-frame box with IoU ≥ 0.5 to a reference-image box is flagged `pre_existing` and not counted toward presence |
+| Dev images | sample_237 (boat present / stack of stones absent), sample_239 (tram / cable car), sample_102 (mushroom / cactus) |
+
+Known failure mode recorded before generation: for an absent query the detector returned the most salient existing object with high confidence (sample_102, query "cactus", boxed the mushroom at 0.81 at both threshold pairs; sample_239, query "cable car", boxed the tram at 0.84). Thresholds do not remove this. Detector presence is therefore reported only alongside the human label and the pre-existing check, never on its own.
+
+VLM: none in the pilot. If a Qwen2.5-VL-7B stand-in is run later (step D4), per-question answers only; never pooled with the paper's protocol.
 
 ## 9. Deviations (dated)
 
