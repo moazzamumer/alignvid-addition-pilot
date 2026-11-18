@@ -55,11 +55,17 @@ Named alternates, in case a chosen sample proves unusable (to be invoked only vi
 
 Shortlisted and rejected after viewing the reference image: `sample_228` (trees already in front of the building), `sample_131` (middle egg already has sprouts; animation image), `sample_239` (cable car "behind" the tram would be occluded), `sample_243` (pumpkins fill the frame, so the intended region is the whole frame), `sample_230` (crowded museum, non-static scene; fallback only).
 
-### 3.3 No-edit control prompts (optional arm; written now)
+### 3.3 No-edit control prompts (optional arm; written 2026-11-18, before generation)
+
+Same five reference images, vanilla settings (`--control_scale 1.0`), same seed as the other arms. Each caption describes the scene as it is and permits only natural motion; it introduces no object, person, animal or weather event. Labelled with the same rubric and reported in a separate table; never pooled with the edit arms. Purpose: a baseline for preservation (how much this model changes the scene when asked for nothing) and for presence false positives (the queried object must not be assumed absent; it is labelled).
 
 | id | motion-neutral caption (no new object) |
 |---|---|
-| | |
+| sample_240 | A quiet modern living room with a grey sofa and a glass partition; daylight shifts slowly through the window blinds. |
+| sample_188 | A small round cafe table with two empty chairs by a sunny window; the light moves gently across the wooden floor. |
+| sample_208 | A calm autumn lake bordered by bare trees and reeds; the water surface ripples slightly and the reflection shimmers. |
+| sample_245 | An empty shopping cart standing in a supermarket aisle in front of refrigerated shelves; the camera holds steady with a subtle drift. |
+| sample_116 | An old stone farmhouse behind a hedge, with a ploughed field in front and hills behind; clouds drift slowly across the sky. |
 
 ## 4. Intended regions
 
@@ -115,10 +121,17 @@ Machine-readable: `data/regions/regions.json`. Previews: `data/regions/<id>_box.
 
 ## 5. Expected-appearance window
 
+Defined on the 16 uniformly spaced extracted frames `f00..f15` (and checked against the full video). **Onset** = first extracted frame in which the object is recognisable. **Persisting** = visible in ≥ 75 % of extracted frames from onset to `f15` inclusive, and visible in `f15`. A video whose onset is later than the window, or which does not persist, is scored as a failure of the corresponding field, not as "absent", if the object does appear at some point.
+
 | id | window | reason |
 |---|---|---|
-| | visible by ≤ 25 % of frames and persisting to end | instantaneous prompt |
-| | visible by ≤ 50 % and persisting | "grows" |
+| sample_240 | onset ≤ `f03` (≤ 25 %) and persisting | "appears": instantaneous prompt |
+| sample_188 | onset ≤ `f03` (≤ 25 %) and persisting; the sitting/reading action may complete later and is labelled under `object_correct` / notes, not under onset | "sits down": the person must be present early; the action sequence is not part of the presence window |
+| sample_208 | onset ≤ `f03` (≤ 25 %) and persisting | "appears": instantaneous prompt |
+| sample_245 | onset ≤ `f03` (≤ 25 %) and persisting | "appears": instantaneous prompt |
+| sample_116 | onset ≤ `f07` (≤ 50 %) and persisting; full height is not required until `f15` | "sprouts and grows": gradual prompt; a bare field at `f00` is expected and not penalised |
+
+The no-edit arm has no window; its presence label is recorded as observed.
 
 ## 6. Generation settings (identical across arms except γ)
 
