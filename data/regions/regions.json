@@ -1,5 +1,5 @@
 {
- "created": "2026-11-18T05:25:56",
+ "created": "2026-11-18T05:30:31",
  "placement_rule": "in if >=50% of object box area inside union of regions; partial if 10-50%; out otherwise",
  "coords": "normalised [x0,y0,x1,y1], origin top-left, on the original reference image",
  "samples": {

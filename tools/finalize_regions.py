@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Write the agreed intended regions (pilot step A6) to data/regions/regions.json
+"""Write the final intended regions (pilot step A6) to data/regions/regions.json
 and draw the previews data/regions/<id>_box.jpg.
 
-Input: a JSON file of agreed boxes and notes, e.g. data/regions/agreed.json:
+Input: a JSON file of final boxes and disagreement notes, e.g. data/regions/final_boxes.json:
 {
   "sample_240": {"boxes": {"A": [x0,y0,x1,y1], "B": [...]},
                  "disagreement": {"A": "one phrase", "B": "one phrase"},
@@ -17,21 +17,21 @@ import cv2
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--agreed", default="data/regions/agreed.json")
+    ap.add_argument("--final", default="data/regions/final_boxes.json")
     ap.add_argument("--comparison", default="data/regions/annotations/comparison_A_B.json")
     ap.add_argument("--meta", default="data/OmitI2V/meta.json")
     ap.add_argument("--out", default="data/regions/regions.json")
     a = ap.parse_args()
-    agreed = json.load(open(a.agreed)); comp = json.load(open(a.comparison))
+    final = json.load(open(a.final)); comp = json.load(open(a.comparison))
     meta = {r["id"]: r for r in json.load(open(a.meta, encoding="utf-8"))}
     root = os.path.dirname(a.meta)
     out = {"created": datetime.datetime.now().isoformat(timespec="seconds"),
            "placement_rule": "in if >=50% of object box area inside union of regions; partial if 10-50%; out otherwise",
            "coords": "normalised [x0,y0,x1,y1], origin top-left, on the original reference image",
            "samples": {}}
-    print("| id | region | annotator A | annotator B | IoU | disagreement type | final (agreed) |\n|---|---|---|---|---|---|---|")
+    print("| id | region | annotator A | annotator B | IoU | disagreement type | final |\n|---|---|---|---|---|---|---|")
     f = lambda b: "`" + ",".join(f"{x:.3f}" for x in b) + "`" if b else "—"
-    for sid, e in agreed.items():
+    for sid, e in final.items():
         r = meta[sid]; W, H = r["resolution"]
         regs = {}
         for lab, box in e["boxes"].items():
