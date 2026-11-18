@@ -55,7 +55,7 @@ external/*/
 
 # ---- LaTeX build files ----
 *.aux
-*.log
+reference/**/*.log
 *.out
 *.toc
 *.synctex.gz

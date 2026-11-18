@@ -1,0 +1,12 @@
+sample_237 present q='boat' thr=(0.35,0.25) -> 1 boxes max=0.85 11.3s
+sample_237 present q='boat' thr=(0.45,0.35) -> 1 boxes max=0.85 10.2s
+sample_237 absent  q='stack of stones' thr=(0.35,0.25) -> 2 boxes max=0.42 9.7s
+sample_237 absent  q='stack of stones' thr=(0.45,0.35) -> 0 boxes max=0.00 10.6s
+sample_239 present q='tram' thr=(0.35,0.25) -> 1 boxes max=0.72 6.5s
+sample_239 present q='tram' thr=(0.45,0.35) -> 1 boxes max=0.72 6.2s
+sample_239 absent  q='cable car' thr=(0.35,0.25) -> 1 boxes max=0.84 6.6s
+sample_239 absent  q='cable car' thr=(0.45,0.35) -> 1 boxes max=0.84 6.7s
+sample_102 present q='mushroom' thr=(0.35,0.25) -> 1 boxes max=0.94 9.4s
+sample_102 present q='mushroom' thr=(0.45,0.35) -> 1 boxes max=0.94 11.3s
+sample_102 absent  q='cactus' thr=(0.35,0.25) -> 1 boxes max=0.81 10.1s
+sample_102 absent  q='cactus' thr=(0.45,0.35) -> 1 boxes max=0.81 9.8s
