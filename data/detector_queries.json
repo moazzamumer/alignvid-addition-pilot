@@ -1,0 +1,10 @@
+{
+ "note": "Grounding DINO text query per pilot sample: the added object's noun phrase taken from the prompt. Fixed 2026-11-19 before any generation (protocol §9).",
+ "queries": {
+  "sample_240": "world globe on a wooden stand",
+  "sample_188": "person",
+  "sample_208": "stag",
+  "sample_245": "jewel-encrusted egg",
+  "sample_116": "tree"
+ }
+}

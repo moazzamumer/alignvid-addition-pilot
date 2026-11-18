@@ -166,4 +166,4 @@ VLM: none in the pilot. A Qwen2.5-VL-7B stand-in, if run later, gives per-questi
 
 | date | what changed | why |
 |---|---|---|
-| | | |
+| 2026-11-19 | Detector query strings fixed, before any generation: 240 "world globe on a wooden stand", 188 "person", 208 "stag", 245 "jewel-encrusted egg", 116 "tree" (`data/detector_queries.json`). | §8 did not state the text query per sample; the `key` field in meta.json is an event phrase, not a noun phrase. Each query is the object noun phrase from the prompt. |
