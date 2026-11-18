@@ -2,7 +2,7 @@
 
 **Status:** FROZEN
 **Frozen on:** 2026-11-18 (Asia/Karachi)
-**Frozen at commit:** `_______`
+**Frozen at commit:** `ec4d9e4`
 **Author:** Moazzam Umer Gondal
 **Second annotator:** MSc student (annotator B)
 
