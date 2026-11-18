@@ -1,0 +1,104 @@
+{
+ "sample_240": {
+  "annotator": "A",
+  "image_path": "addition/object/object/sample_240.jpg",
+  "image_size": [
+   1920,
+   1280
+  ],
+  "free_placement": false,
+  "boxes": {
+   "A": [
+    0.2829,
+    0.4354,
+    0.3431,
+    0.7488
+   ],
+   "B": [
+    0.9415,
+    0.5622,
+    0.9976,
+    0.9988
+   ]
+  },
+  "timestamp": "2026-11-18T04:33:01"
+ },
+ "sample_188": {
+  "annotator": "A",
+  "image_path": "addition/object/human/sample_188.jpg",
+  "image_size": [
+   1920,
+   1280
+  ],
+  "free_placement": false,
+  "boxes": {
+   "A": [
+    0.2951,
+    0.0268,
+    0.8065,
+    0.9695
+   ],
+   "B": [
+    0.0016,
+    0.0902,
+    0.3016,
+    0.9244
+   ]
+  },
+  "timestamp": "2026-11-18T04:35:58"
+ },
+ "sample_208": {
+  "annotator": "A",
+  "image_path": "addition/object/animal/sample_208.jpg",
+  "image_size": [
+   1920,
+   1280
+  ],
+  "free_placement": false,
+  "boxes": {
+   "A": [
+    0.0016,
+    0.1817,
+    0.9967,
+    0.4671
+   ]
+  },
+  "timestamp": "2026-11-18T04:37:02"
+ },
+ "sample_245": {
+  "annotator": "A",
+  "image_path": "addition/object/object/sample_245.jpg",
+  "image_size": [
+   1920,
+   1105
+  ],
+  "free_placement": false,
+  "boxes": {
+   "A": [
+    0.459,
+    0.6305,
+    0.8127,
+    0.8963
+   ]
+  },
+  "timestamp": "2026-11-18T04:39:18"
+ },
+ "sample_116": {
+  "annotator": "A",
+  "image_path": "addition/object/architecture/sample_116.jpg",
+  "image_size": [
+   1920,
+   1272
+  ],
+  "free_placement": false,
+  "boxes": {
+   "A": [
+    0.3983,
+    0.3232,
+    0.8435,
+    0.7866
+   ]
+  },
+  "timestamp": "2026-11-18T04:44:28"
+ }
+}

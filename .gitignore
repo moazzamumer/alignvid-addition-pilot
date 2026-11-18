@@ -12,6 +12,7 @@ reference/research_notes/
 reference/*_notes.md
 notes/
 scratch/
+handoff/
 
 # ---- Secrets / credentials ----
 .env

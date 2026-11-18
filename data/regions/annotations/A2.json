@@ -1,0 +1,44 @@
+{
+ "sample_240": {
+  "annotator": "A2",
+  "image_path": "addition/object/object/sample_240.jpg",
+  "image_size": [
+   1920,
+   1280
+  ],
+  "free_placement": false,
+  "boxes": {
+   "A": [
+    0.2813,
+    0.4207,
+    0.426,
+    0.8329
+   ],
+   "B": [
+    0.8122,
+    0.5341,
+    1.0,
+    0.9988
+   ]
+  },
+  "timestamp": "2026-11-18T05:23:25"
+ },
+ "sample_245": {
+  "annotator": "A2",
+  "image_path": "addition/object/object/sample_245.jpg",
+  "image_size": [
+   1920,
+   1105
+  ],
+  "free_placement": false,
+  "boxes": {
+   "A": [
+    0.4001,
+    0.4793,
+    0.8008,
+    0.8646
+   ]
+  },
+  "timestamp": "2026-11-18T05:25:07"
+ }
+}

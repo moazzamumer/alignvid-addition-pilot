@@ -1,0 +1,216 @@
+{
+ "created": "2026-11-18T05:25:56",
+ "placement_rule": "in if >=50% of object box area inside union of regions; partial if 10-50%; out otherwise",
+ "coords": "normalised [x0,y0,x1,y1], origin top-left, on the original reference image",
+ "samples": {
+  "sample_240": {
+   "image_path": "addition/object/object/sample_240.jpg",
+   "image_size": [
+    1920,
+    1280
+   ],
+   "prompt": "An ornate, antique world globe on a wooden stand, reminiscent of the Victorian era, appears next to the sofa.",
+   "free_placement": false,
+   "regions": {
+    "A": {
+     "final": [
+      0.2813,
+      0.4207,
+      0.426,
+      0.8329
+     ],
+     "A": [
+      0.2829,
+      0.4354,
+      0.3431,
+      0.7488
+     ],
+     "B": [
+      0.2805,
+      0.4195,
+      0.5276,
+      0.9524
+     ],
+     "iou_AB": 0.143,
+     "disagreement": "horizontal extent: A took only the gap beside the partition; B took partition-to-sofa-arm including the side tables, as written. Final: A redrew from the text (A2)."
+    },
+    "B": {
+     "final": [
+      0.8122,
+      0.5341,
+      1.0,
+      0.9988
+     ],
+     "A": [
+      0.9415,
+      0.5622,
+      0.9976,
+      0.9988
+     ],
+     "B": [
+      0.7919,
+      0.5085,
+      0.9927,
+      0.9756
+     ],
+     "iou_AB": 0.218,
+     "disagreement": "where 'the end of the chaise' lies: A drew only the strip at the blinds; B started at the chaise end, as written. Final: A redrew from the text (A2)."
+    }
+   }
+  },
+  "sample_188": {
+   "image_path": "addition/object/human/sample_188.jpg",
+   "image_size": [
+    1920,
+    1280
+   ],
+   "prompt": "A person sits down in the empty chair at the table, picks up the book, and begins to read.",
+   "free_placement": false,
+   "regions": {
+    "A": {
+     "final": [
+      0.2951,
+      0.0268,
+      0.8065,
+      0.9695
+     ],
+     "A": [
+      0.2951,
+      0.0268,
+      0.8065,
+      0.9695
+     ],
+     "B": [
+      0.1634,
+      0.0024,
+      0.948,
+      0.989
+     ],
+     "iou_AB": 0.623,
+     "disagreement": "margin size only: same chair; B used a larger margin and ran to the top of the frame. Final: A's box."
+    },
+    "B": {
+     "final": [
+      0.0016,
+      0.0902,
+      0.3016,
+      0.9244
+     ],
+     "A": [
+      0.0016,
+      0.0902,
+      0.3016,
+      0.9244
+     ],
+     "B": [
+      0.0016,
+      0.0024,
+      0.4447,
+      0.9817
+     ],
+     "iou_AB": 0.577,
+     "disagreement": "margin size only: same chair, clipped at the frame edge. Final: A's box."
+    }
+   }
+  },
+  "sample_208": {
+   "image_path": "addition/object/animal/sample_208.jpg",
+   "image_size": [
+    1920,
+    1280
+   ],
+   "prompt": "A majestic stag with large antlers appears at the edge of the frozen lake, its breath visible in the cold air.",
+   "free_placement": false,
+   "regions": {
+    "A": {
+     "final": [
+      0.0016,
+      0.1817,
+      0.9967,
+      0.4671
+     ],
+     "A": [
+      0.0016,
+      0.1817,
+      0.9967,
+      0.4671
+     ],
+     "B": [
+      0.0016,
+      0.2402,
+      0.9967,
+      0.4951
+     ],
+     "iou_AB": 0.724,
+     "disagreement": "lower edge only: B put it at the waterline, A slightly below it as written. Final: A's box."
+    }
+   }
+  },
+  "sample_245": {
+   "image_path": "addition/object/object/sample_245.jpg",
+   "image_size": [
+    1920,
+    1105
+   ],
+   "prompt": "A large, jewel-encrusted Faberg egg appears in the shopping cart.",
+   "free_placement": false,
+   "regions": {
+    "A": {
+     "final": [
+      0.4001,
+      0.4793,
+      0.8008,
+      0.8646
+     ],
+     "A": [
+      0.459,
+      0.6305,
+      0.8127,
+      0.8963
+     ],
+     "B": [
+      0.3018,
+      0.3793,
+      0.8022,
+      0.8341
+     ],
+     "iou_AB": 0.278,
+     "disagreement": "fraction-based margin read differently: A omitted the half-depth margin above the rim; B included it but ran past the yellow panel and stopped above the basket floor. Final: A redrew from the text (A2)."
+    }
+   }
+  },
+  "sample_116": {
+   "image_path": "addition/object/architecture/sample_116.jpg",
+   "image_size": [
+    1920,
+    1272
+   ],
+   "prompt": "A young tree sprouts at the front of the house and grows quickly until it stands full-height in front of the facade.",
+   "free_placement": false,
+   "regions": {
+    "A": {
+     "final": [
+      0.3983,
+      0.3232,
+      0.8435,
+      0.7866
+     ],
+     "A": [
+      0.3983,
+      0.3232,
+      0.8435,
+      0.7866
+     ],
+     "B": [
+      0.3862,
+      0.3024,
+      0.8629,
+      0.7646
+     ],
+     "iou_AB": 0.854,
+     "disagreement": "near-identical; small margin difference. Final: A's box."
+    }
+   }
+  }
+ }
+}

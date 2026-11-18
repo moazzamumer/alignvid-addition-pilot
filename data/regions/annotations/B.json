@@ -1,0 +1,12 @@
+{
+ "sample_240": {"annotator": "B", "image_path": "addition/object/object/sample_240.jpg", "image_size": [1920, 1280], "free_placement": false,
+  "boxes": {"A": [0.2805, 0.4195, 0.5276, 0.9524], "B": [0.7919, 0.5085, 0.9927, 0.9756]}, "timestamp": "2026-11-18T00:15:38"},
+ "sample_188": {"annotator": "B", "image_path": "addition/object/human/sample_188.jpg", "image_size": [1920, 1280], "free_placement": false,
+  "boxes": {"A": [0.1634, 0.0024, 0.948, 0.989], "B": [0.0016, 0.0024, 0.4447, 0.9817]}, "timestamp": "2026-11-18T00:16:19"},
+ "sample_208": {"annotator": "B", "image_path": "addition/object/animal/sample_208.jpg", "image_size": [1920, 1280], "free_placement": false,
+  "boxes": {"A": [0.0016, 0.2402, 0.9967, 0.4951]}, "timestamp": "2026-11-18T00:16:31"},
+ "sample_245": {"annotator": "B", "image_path": "addition/object/object/sample_245.jpg", "image_size": [1920, 1105], "free_placement": false,
+  "boxes": {"A": [0.3018, 0.3793, 0.8022, 0.8341]}, "timestamp": "2026-11-18T00:16:54"},
+ "sample_116": {"annotator": "B", "image_path": "addition/object/architecture/sample_116.jpg", "image_size": [1920, 1272], "free_placement": false,
+  "boxes": {"A": [0.3862, 0.3024, 0.8629, 0.7646]}, "timestamp": "2026-11-18T00:17:22"}
+}
