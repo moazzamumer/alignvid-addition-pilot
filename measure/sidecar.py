@@ -1,6 +1,10 @@
 """JSON sidecar written next to every measurement/generation output: arguments,
 timing, peak memory, git hash and library versions.  Shared by all measure/ scripts."""
-import datetime, json, os, platform, resource, subprocess, sys
+import datetime, json, os, platform, subprocess, sys
+try:
+    import resource
+except ImportError:
+    resource = None
 
 
 def git_hash(path=None):
@@ -23,8 +27,9 @@ def versions(names=("cv2", "numpy", "PIL", "torch", "transformers", "torchvision
 
 
 def peak_rss_mb():
-    # ru_maxrss is KB on Linux
-    return round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024, 1)
+    if resource is None:
+        return None
+    return round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024, 1)  # ru_maxrss is KB on Linux
 
 
 class Sidecar:

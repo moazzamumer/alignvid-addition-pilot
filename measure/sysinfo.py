@@ -12,10 +12,18 @@ In-process use:
   from sysinfo import Run
   with Run("logs/vanilla_sample_240.json", arm="vanilla", id="sample_240") as r: ...
   (adds torch.cuda.max_memory_allocated when torch+CUDA are available)."""
-import argparse, datetime, json, os, platform, re, resource, shutil, subprocess, sys, threading, time
+import argparse, datetime, json, os, platform, re, shutil, subprocess, sys, threading, time
+try:
+    import resource  # not available on Windows
+except ImportError:
+    resource = None
+try:
+    import psutil
+except ImportError:
+    psutil = None
 
 LIBS = ("torch", "torchvision", "diffusers", "transformers", "accelerate", "xformers", "flash_attn", "sageattention",
-        "cv2", "numpy", "PIL", "imageio", "safetensors", "huggingface_hub")
+        "cv2", "numpy", "PIL", "imageio", "safetensors", "huggingface_hub", "psutil")
 
 
 def sh(cmd, cwd=None):
@@ -97,6 +105,36 @@ class GpuPoller(threading.Thread):
         self._stop.set()
 
 
+class RssPoller(threading.Thread):
+    """Polls a child process tree's RSS with psutil every `interval` s; .peak_gb is the max seen."""
+
+    def __init__(self, pid, interval=1.0):
+        super().__init__(daemon=True); self.pid = pid; self.interval = interval; self.peak_gb = None; self._stop = threading.Event()
+
+    def run(self):
+        if psutil is None:
+            return
+        while not self._stop.is_set():
+            try:
+                p = psutil.Process(self.pid)
+                rss = p.memory_info().rss + sum(c.memory_info().rss for c in p.children(recursive=True))
+                g = rss / 2**30; self.peak_gb = g if self.peak_gb is None else max(self.peak_gb, g)
+            except Exception:
+                pass
+            self._stop.wait(self.interval)
+
+    def stop(self):
+        self._stop.set()
+
+
+def self_peak_rss_gb():
+    if resource is not None:
+        return round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 2**20, 3)
+    if psutil is not None:
+        mi = psutil.Process().memory_info(); return round(getattr(mi, "peak_wset", mi.rss) / 2**30, 3)
+    return None
+
+
 class Run:
     """Context manager for an in-process block: wall time, peak RSS, torch CUDA peak, writes JSON on exit."""
 
@@ -118,7 +156,7 @@ class Run:
         self.poller.stop()
         rec = {**self.meta, "start": self.start, "end": datetime.datetime.now().isoformat(timespec="seconds"),
                "wall_seconds": round(time.time() - self.t0, 2), "ok": et is None, "error": None if et is None else repr(ev),
-               "peak_rss_gb": round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 2**20, 3),
+               "peak_rss_gb": self_peak_rss_gb(),
                "peak_gpu_used_mb_nvidia_smi": self.poller.peak_mb, "torch_cuda_max_allocated_gb": None, "sysinfo": sysinfo()}
         try:
             import torch
@@ -136,15 +174,23 @@ def run_command(cmd, log_path, cwd=None, tail=60, **meta):
     poller = GpuPoller(); poller.start()
     t0 = time.time(); start = datetime.datetime.now().isoformat(timespec="seconds")
     lines = []
-    p = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
+    p = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1,
+                         encoding="utf-8", errors="replace")
+    rss = RssPoller(p.pid); rss.start()
     for ln in p.stdout:
         sys.stdout.write(ln); sys.stdout.flush(); lines.append(ln.rstrip("\n"))
         if len(lines) > 5000:
             lines = lines[-tail:]
-    p.wait(); poller.stop()
+    p.wait(); poller.stop(); rss.stop()
+    if rss.peak_gb is not None:
+        child_peak = round(rss.peak_gb, 3); child_peak_src = "psutil poll 1 s"
+    elif resource is not None:
+        child_peak = round(resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 2**20, 3); child_peak_src = "ru_maxrss children (cumulative)"
+    else:
+        child_peak = None; child_peak_src = None
     rec = {**meta, "command": cmd, "cwd": cwd, "start": start, "end": datetime.datetime.now().isoformat(timespec="seconds"),
            "wall_seconds": round(time.time() - t0, 2), "exit_code": p.returncode, "ok": p.returncode == 0,
-           "child_peak_rss_gb": round(resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 2**20, 3),
+           "child_peak_rss_gb": child_peak, "child_peak_rss_source": child_peak_src,
            "peak_gpu_used_mb_nvidia_smi": poller.peak_mb, "output_tail": lines[-tail:], "sysinfo": sysinfo()}
     os.makedirs(os.path.dirname(os.path.abspath(log_path)), exist_ok=True)
     json.dump(rec, open(log_path, "w"), indent=1)

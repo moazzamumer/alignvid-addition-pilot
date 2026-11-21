@@ -1,0 +1,256 @@
+[
+ {
+  "id": "sample_240",
+  "image-path": "addition/object/object/sample_240.jpg",
+  "prompt": "An ornate, antique world globe on a wooden stand, reminiscent of the Victorian era, appears next to the sofa.",
+  "main-category": "addition",
+  "sub-category": "object",
+  "domain": "object",
+  "type": "real image",
+  "key": [
+   "antique world globe appears"
+  ],
+  "expected-change": "A new static object, a vintage-style globe, should be added to the room's decor.",
+  "resolution": [
+   1920,
+   1280
+  ],
+  "aspect_ratio": 1.5,
+  "questions": [
+   {
+    "id": "q1",
+    "question": "Is there an antique world globe visible in the scene?",
+    "expected_answer": "yes",
+    "category": "object_presence"
+   },
+   {
+    "id": "q3",
+    "question": "Is the globe placed next to the sofa as described?",
+    "expected_answer": "yes",
+    "category": "spatial_relationship"
+   },
+   {
+    "id": "q4",
+    "question": "Is the globe on a wooden stand?",
+    "expected_answer": "yes",
+    "category": "attribute_accuracy"
+   },
+   {
+    "id": "q5",
+    "question": "Does the video show the globe being removed from the scene?",
+    "expected_answer": "no",
+    "category": "action_correctness"
+   },
+   {
+    "id": "q6",
+    "question": "Are there multiple globes present in the scene?",
+    "expected_answer": "no",
+    "category": "attribute_accuracy"
+   }
+  ]
+ },
+ {
+  "id": "sample_188",
+  "image-path": "addition/object/human/sample_188.jpg",
+  "prompt": "A person sits down in the empty chair at the table, picks up the book, and begins to read.",
+  "main-category": "addition",
+  "sub-category": "object",
+  "domain": "human",
+  "type": "real image",
+  "key": [
+   "person sits down",
+   "begins to read"
+  ],
+  "expected-change": "A new person should be added, shown interacting with the furniture and objects in the scene in a sequence of actions.",
+  "resolution": [
+   1920,
+   1280
+  ],
+  "aspect_ratio": 1.5,
+  "questions": [
+   {
+    "id": "q2",
+    "question": "Is the person reading a newspaper?",
+    "expected_answer": "no",
+    "category": "action_correctness"
+   },
+   {
+    "id": "q3",
+    "question": "Does the person pick up a book from the table?",
+    "expected_answer": "yes",
+    "category": "action_correctness"
+   },
+   {
+    "id": "q4",
+    "question": "Is there already someone else reading in the scene initially?",
+    "expected_answer": "no",
+    "category": "object_presence"
+   },
+   {
+    "id": "q5",
+    "question": "Is the chair empty at the beginning of the video?",
+    "expected_answer": "yes",
+    "category": "object_presence"
+   },
+   {
+    "id": "q6",
+    "question": "Does the person get up from the chair after sitting down?",
+    "expected_answer": "no",
+    "category": "dynamic_changes"
+   }
+  ]
+ },
+ {
+  "id": "sample_208",
+  "image-path": "addition/object/animal/sample_208.jpg",
+  "prompt": "A majestic stag with large antlers appears at the edge of the frozen lake, its breath visible in the cold air.",
+  "main-category": "addition",
+  "sub-category": "object",
+  "domain": "animal",
+  "type": "real image",
+  "key": [
+   "majestic stag appears",
+   "breath visible"
+  ],
+  "expected-change": "A new animal, a stag, should be added to the shoreline, along with a subtle particle effect for its visible breath.",
+  "resolution": [
+   1920,
+   1280
+  ],
+  "aspect_ratio": 1.5,
+  "questions": [
+   {
+    "id": "q1",
+    "question": "Is a stag present at the edge of the frozen lake?",
+    "expected_answer": "yes",
+    "category": "object_presence"
+   },
+   {
+    "id": "q2",
+    "question": "Is the stag's breath visible in the cold air?",
+    "expected_answer": "yes",
+    "category": "attribute_accuracy"
+   },
+   {
+    "id": "q3",
+    "question": "Does the stag appear in the middle of the frozen lake?",
+    "expected_answer": "no",
+    "category": "spatial_relationship"
+   },
+   {
+    "id": "q5",
+    "question": "Does the stag have large antlers as it appears at the edge of the frozen lake?",
+    "expected_answer": "yes",
+    "category": "attribute_accuracy"
+   },
+   {
+    "id": "q6",
+    "question": "Is the stag already present at the edge of the frozen lake from the beginning of the scene?",
+    "expected_answer": "no",
+    "category": "dynamic_changes"
+   }
+  ]
+ },
+ {
+  "id": "sample_245",
+  "image-path": "addition/object/object/sample_245.jpg",
+  "prompt": "A large, jewel-encrusted Faberg egg appears in the shopping cart.",
+  "main-category": "addition",
+  "sub-category": "object",
+  "domain": "object",
+  "type": "real image",
+  "key": [
+   "Faberg egg appears",
+   "in shopping cart"
+  ],
+  "expected-change": "A new static object, an ornate and valuable Faberg egg, should be added to the shopping cart, creating a humorous juxtaposition.",
+  "resolution": [
+   1920,
+   1105
+  ],
+  "aspect_ratio": 1.74,
+  "questions": [
+   {
+    "id": "q1",
+    "question": "Is a Faberg egg present in the shopping cart?",
+    "expected_answer": "yes",
+    "category": "object_presence"
+   },
+   {
+    "id": "q2",
+    "question": "Is the Faberg egg being held by someone?",
+    "expected_answer": "no",
+    "category": "action_correctness"
+   },
+   {
+    "id": "q3",
+    "question": "Does the Faberg egg appear to be jewel-encrusted?",
+    "expected_answer": "yes",
+    "category": "attribute_accuracy"
+   },
+   {
+    "id": "q4",
+    "question": "Is the Faberg egg floating above the shopping cart?",
+    "expected_answer": "no",
+    "category": "spatial_relationship"
+   },
+   {
+    "id": "q5",
+    "question": "Does the shopping cart contain any other large, ornate objects besides the Faberg egg?",
+    "expected_answer": "no",
+    "category": "object_presence"
+   },
+   {
+    "id": "q6",
+    "question": "Does the Faberg egg suddenly disappear from the shopping cart?",
+    "expected_answer": "no",
+    "category": "dynamic_changes"
+   }
+  ]
+ },
+ {
+  "id": "sample_116",
+  "image-path": "addition/object/architecture/sample_116.jpg",
+  "prompt": "A young tree sprouts at the front of the house and grows quickly until it stands full-height in front of the facade.",
+  "main-category": "addition",
+  "sub-category": "object",
+  "domain": "architecture",
+  "type": "real image",
+  "key": [
+   "tree grows",
+   "in front of house"
+  ],
+  "expected-change": "A sapling appears at ground level in front of the house, then its trunk and branches extend upward, filling out into a mature tree.",
+  "resolution": [
+   1920,
+   1272
+  ],
+  "aspect_ratio": 1.51,
+  "questions": [
+   {
+    "id": "q2",
+    "question": "Does the tree grow taller than the house?",
+    "expected_answer": "no",
+    "category": "attribute_accuracy"
+   },
+   {
+    "id": "q3",
+    "question": "Does the tree appear to grow from a sapling to a mature tree in front of the house?",
+    "expected_answer": "yes",
+    "category": "action_correctness"
+   },
+   {
+    "id": "q4",
+    "question": "Is the tree located at the side of the house instead of in front of it?",
+    "expected_answer": "no",
+    "category": "spatial_relationship"
+   },
+   {
+    "id": "q6",
+    "question": "Does a second tree appear and grow alongside the first one in front of the house?",
+    "expected_answer": "no",
+    "category": "object_presence"
+   }
+  ]
+ }
+]

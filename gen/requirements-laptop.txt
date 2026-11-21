@@ -1,0 +1,25 @@
+# FramePack requirements from external/AlignVid/models/FramePack/requirements.txt with the
+# unused service packages removed (gradio, pyarmor, azure-storage-blob) and two pins added
+# so that pip does not pull incompatible newer releases.  torch/torchvision are installed
+# separately from the CUDA 12.8 index (see round1.bat).
+accelerate==1.6.0
+diffusers==0.33.1
+transformers==4.46.2
+huggingface_hub==0.30.2
+sentencepiece==0.2.0
+pillow==11.1.0
+av==12.1.0
+numpy==1.26.2
+scipy==1.12.0
+requests==2.31.0
+torchsde==0.2.6
+einops
+opencv-contrib-python==4.10.0.84
+safetensors
+imageio
+imageio-ffmpeg
+pillow-avif-plugin
+pymongo
+cffi
+cryptography
+psutil

@@ -31,7 +31,7 @@ __pycache__/
 .venv-measure/
 venv/
 venv-*/
-gen/
+gen/.venv-gen/
 measure-env/
 .ipynb_checkpoints/
 .pytest_cache/
@@ -73,3 +73,5 @@ Thumbs.db
 .idea/
 data/regions/annotations/*_discarded_*
 models/
+results_*.zip
+outputs/**/*.prompt.json
