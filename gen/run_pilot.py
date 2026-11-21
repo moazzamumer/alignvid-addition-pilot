@@ -175,7 +175,7 @@ def generate(arm, sid, length, gpu_mem, dry=False, out_dir=None):
         cmd = [sys.executable, "inference_f1_json.py", "--data_dir", DATA_DIR, "--prompt_file", pf, "--output_dir", out_dir,
                "--length", str(length), "--gpu_mem", str(gpu_mem), "--control_scale", control] + FIXED
     env = {**os.environ, "RANK": "0", "WORLD_SIZE": "1", "LOCAL_RANK": "0", "MASTER_ADDR": "127.0.0.1", "MASTER_PORT": "29555",
-           "HF_HUB_DISABLE_XET": "1", "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
+           "HF_HUB_DISABLE_XET": "1", "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1", "MPLBACKEND": "Agg"}
     os.environ.update(env)
     log(f"{arm}/{sid}: start length={length} gpu_mem={gpu_mem} control_scale={control}")
     log_path = os.path.join(LOGS, f"{arm}_{sid}__len{length}_gm{gpu_mem}.json")
