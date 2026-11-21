@@ -18,6 +18,19 @@ PATCHES = [
      "old": "            llama_vec, clip_l_pooler = encode_prompt_conds(\n                active_prompt, text_encoder, text_encoder_2, tokenizer, tokenizer_2\n            )\n",
      "new": "            if not high_vram:\n                fake_diffusers_current_device(text_encoder, gpu)\n                load_model_as_complete(text_encoder_2, target_device=gpu)\n            llama_vec, clip_l_pooler = encode_prompt_conds(\n                active_prompt, text_encoder, text_encoder_2, tokenizer, tokenizer_2\n            )\n",
      "why": "Same fix for the per-section prompt encode inside the generation loop."},
+    {"id": "sdpa-query-chunks", "file": f"{FP}/diffusers_helper/models/hunyuan_video_packed.py",
+     "old": "        x = torch.nn.functional.scaled_dot_product_attention(q.transpose(1, 2), k.transpose(1, 2),\n                                                             v.transpose(1, 2)).transpose(1, 2)\n        return x\n",
+     "new": "        qt, kt, vt = q.transpose(1, 2), k.transpose(1, 2), v.transpose(1, 2)\n"
+            "        # Pilot patch: on GPUs without a fused bf16 attention kernel (compute capability < 8.0) the\n"
+            "        # math fallback materialises the full score matrix; run it in query chunks instead (exact).\n"
+            "        _chunk = int(os.environ.get('ATTN_Q_CHUNK', '512' if qt.is_cuda and torch.cuda.get_device_capability(qt.device)[0] < 8 else '0'))\n"
+            "        if _chunk <= 0 or qt.shape[2] <= _chunk:\n"
+            "            x = torch.nn.functional.scaled_dot_product_attention(qt, kt, vt)\n"
+            "        else:\n"
+            "            x = torch.cat([torch.nn.functional.scaled_dot_product_attention(qt[:, :, i:i + _chunk], kt, vt)\n"
+            "                           for i in range(0, qt.shape[2], _chunk)], dim=2)\n"
+            "        return x.transpose(1, 2)\n",
+     "why": "Tesla T4 (sm_75) has no flash/mem-efficient bf16 SDPA kernel; the math fallback tried to allocate 30 GiB for the score matrix (C3 OOM, 2026-11-22). Query chunking computes the same softmax(QK^T)V per query row; only the memory layout changes. Inactive on sm_80+ unless ATTN_Q_CHUNK is set."},
 ]
 
 

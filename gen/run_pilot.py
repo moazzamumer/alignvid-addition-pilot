@@ -32,7 +32,7 @@ DATA_DIR = os.path.join(ROOT, "data", "OmitI2V")
 FIXED = ["--seed", "31337", "--steps", "25", "--cfg", "1.0", "--gs", "10.0", "--rs", "0.0", "--teacache", "True"]
 ARMS = {"vanilla": ("1.0", "data/pilot5.json"), "alignvid": ("1.35", "data/pilot5.json"), "noedit": ("1.0", "data/noedit5.json")}
 PROBE_ID = "sample_240"
-DRYRUN_LADDER = [("2.0", "6"), ("1.0", "6")]  # C3 on a 6 GB card: shorter clip if OOM; 6 GB preserved is already the maximum useful value
+DRYRUN_LADDER = [("2.0", "6"), ("2.0", "8"), ("1.0", "8")]  # C3: more preserved VRAM, then a shorter clip, if OOM
 LENGTH_LADDER = ["6.0", "3.0", "2.0"]  # §6
 HOST = os.environ.get("PILOT_HOST") or platform.node() or "machine"
 QUIET = False
@@ -166,7 +166,7 @@ def generate(arm, sid, length, gpu_mem, dry=False, out_dir=None):
         cmd = [sys.executable, "inference_f1_json.py", "--data_dir", DATA_DIR, "--prompt_file", pf, "--output_dir", out_dir,
                "--length", str(length), "--gpu_mem", str(gpu_mem), "--control_scale", control] + FIXED
     env = {**os.environ, "RANK": "0", "WORLD_SIZE": "1", "LOCAL_RANK": "0", "MASTER_ADDR": "127.0.0.1", "MASTER_PORT": "29555",
-           "HF_HUB_DISABLE_XET": "1", "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1", "MPLBACKEND": "Agg"}
+           "HF_HUB_DISABLE_XET": "1", "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1", "MPLBACKEND": "Agg", "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"}
     os.environ.update(env)
     log(f"{arm}/{sid}: start length={length} gpu_mem={gpu_mem} control_scale={control}")
     log_path = os.path.join(LOGS, f"{arm}_{sid}__len{length}_gm{gpu_mem}.json")
