@@ -1,7 +1,9 @@
-# Patches applied by gen/run_pilot.py before generation
+# Source patches applied before generation (`gen/patches/apply_patches.py`)
 
-| file | change | why |
-|---|---|---|
-| `models/FramePack/diffusers_helper/parallel_mgr.py` | `backend='nccl'` → `backend=('nccl' if torch.distributed.is_nccl_available() else 'gloo')` | NCCL does not exist on Windows; the script initialises a one-process group before loading any model. No model, sampling or attention code is touched. |
+Applied by `gen/run_pilot.py --stage patch`; each is recorded in `logs/patches.json` with the file's sha256 before and after. No model, sampling or attention code is touched.
 
-The original line is kept in `logs/patches.json` together with the file's sha256 before and after.
+| id | file | change | why |
+|---|---|---|---|
+| dist-backend | `diffusers_helper/parallel_mgr.py` | `backend='nccl'` → `'nccl' if available else 'gloo'` | NCCL does not exist on Windows; the script initialises a one-process group before loading any model. |
+| lowvram-text-encode-1 | `inference_f1_json.py`, before the first prompt encode | add `fake_diffusers_current_device(text_encoder, gpu)` and `load_model_as_complete(text_encoder_2, target_device=gpu)` inside `if not high_vram:` | The low-VRAM branch (free VRAM ≤ 60 GB) is missing the two lines upstream FramePack has here. Without them `text_encoder.device` reports CPU while the dynamically swapped embedding weight is on the GPU: `RuntimeError: Expected all tensors to be on the same device` (found at C3 on a Kaggle T4, 2026-11-22). The authors' runs used ≥ 80 GB GPUs, where this branch is skipped. |
+| lowvram-text-encode-2 | `inference_f1_json.py`, per-section prompt encode in the loop | same two lines | Same fix for the second call site. |

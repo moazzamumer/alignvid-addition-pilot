@@ -8,7 +8,7 @@ and a slim sidecar outputs/<arm>/<id>.json.
 
 Stages (all resumable; existing mp4 files are skipped):
   env      logs/env_<host>.json + .txt: GPU, driver, RAM, versions, bf16 matmul test
-  patch    apply gen/patches (distributed backend fallback), record sha256 before/after
+  patch    apply gen/patches/apply_patches.py (recorded source patches), sha256 before/after
   weights  snapshot_download of the three model repos into FramePack/hf_download (resumable)
   dryrun   vanilla sample_240 at --length 2.0 then 1.0 with --gpu_mem 6 (protocol C3)
   length   probe vanilla sample_240 at 6.0 s, else 3.0, else 2.0 (protocol §6); the
@@ -98,21 +98,12 @@ def stage_env():
 
 # ---------------- stage: patch ----------------
 def stage_patch():
-    p = os.path.join(FP_DIR, "diffusers_helper", "parallel_mgr.py")
-    old = "backend='nccl'"
-    new = "backend=('nccl' if torch.distributed.is_nccl_available() else 'gloo')"
-    rec = {"file": os.path.relpath(p, ROOT), "sha256_before": sha(p), "applied": False, "already": False, "original": old, "replacement": new}
-    s = open(p, encoding="utf-8").read()
-    if new in s:
-        rec["already"] = True
-    elif old in s:
-        open(p, "w", encoding="utf-8").write(s.replace(old, new)); rec["applied"] = True
-    else:
-        rec["error"] = "pattern not found"
-    rec["sha256_after"] = sha(p)
-    json.dump(rec, open(os.path.join(LOGS, "patches.json"), "w"), indent=1)
-    log(f"patch parallel_mgr.py: applied={rec['applied']} already={rec['already']} {rec.get('error', '')}")
-    return "error" not in rec
+    sys.path.insert(0, os.path.join(ROOT, "gen", "patches"))
+    from apply_patches import apply
+    recs = apply(ROOT); ok = True
+    for r in recs:
+        log(f"patch {r['id']}: applied={r['applied']} already={r['already']} {r.get('error', '')}"); ok = ok and "error" not in r
+    return ok
 
 
 # ---------------- stage: weights ----------------
