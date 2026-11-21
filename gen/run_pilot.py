@@ -10,7 +10,7 @@ Stages (all resumable; existing mp4 files are skipped):
   env      logs/env_<host>.json + .txt: GPU, driver, RAM, versions, bf16 matmul test
   patch    apply gen/patches (distributed backend fallback), record sha256 before/after
   weights  snapshot_download of the three model repos into FramePack/hf_download (resumable)
-  dryrun   vanilla sample_240, --length 2.0, ladder of --gpu_mem values (protocol C3)
+  dryrun   vanilla sample_240 at --length 2.0 then 1.0 with --gpu_mem 6 (protocol C3)
   length   probe vanilla sample_240 at 6.0 s, else 3.0, else 2.0 (protocol §6); the
            successful probe IS the vanilla video for that sample
   arms     vanilla (1.0), alignvid (1.35), noedit (vanilla settings, §3.3 prompts)
@@ -31,7 +31,7 @@ DATA_DIR = os.path.join(ROOT, "data", "OmitI2V")
 FIXED = ["--seed", "31337", "--steps", "25", "--cfg", "1.0", "--gs", "10.0", "--rs", "0.0", "--teacache", "True"]
 ARMS = {"vanilla": ("1.0", "data/pilot5.json"), "alignvid": ("1.35", "data/pilot5.json"), "noedit": ("1.0", "data/noedit5.json")}
 PROBE_ID = "sample_240"
-GPU_MEM_LADDER = ["6", "7"]          # C3: raise preservation if OOM
+DRYRUN_LADDER = [("2.0", "6"), ("1.0", "6")]  # C3 on a 6 GB card: shorter clip if OOM; 6 GB preserved is already the maximum useful value
 LENGTH_LADDER = ["6.0", "3.0", "2.0"]  # §6
 HOST = platform.node() or "machine"
 LOGS = os.path.join(ROOT, "logs"); OUT = os.path.join(ROOT, "outputs"); STATE = os.path.join(LOGS, "run_state.json")
@@ -186,11 +186,11 @@ def stage_dryrun(dry):
     st = state()
     if st.get("gpu_mem"):
         log(f"dryrun: already done, gpu_mem={st['gpu_mem']}"); return True
-    for gm in GPU_MEM_LADDER:
-        rec = generate("vanilla", PROBE_ID, "2.0", gm, dry, out_dir=os.path.join(OUT, "dryrun"))
+    for L, gm in DRYRUN_LADDER:
+        rec = generate("vanilla", PROBE_ID, L, gm, dry, out_dir=os.path.join(OUT, "dryrun"))
         if rec["ok"]:
-            state(gpu_mem=gm, dryrun={"length": 2.0, "gpu_mem": gm, "wall_seconds": rec.get("wall_seconds")}); return True
-    log("dryrun FAILED at every gpu_mem value; stopping. Send the logs folder back.")
+            state(gpu_mem=gm, dryrun={"length": float(L), "gpu_mem": gm, "wall_seconds": rec.get("wall_seconds")}); return True
+    log("dryrun FAILED at every rung; stopping. Send the logs folder back.")
     state(dryrun_failed=True); return False
 
 

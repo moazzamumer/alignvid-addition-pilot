@@ -22,7 +22,7 @@ Double-click `gen\round1.bat` (or run it from a terminal). Leave the window open
 - download the model weights (35 GB, depends on your connection),
 - write an environment report to `logs\env_<pc-name>.txt`,
 - run one 2-second test video, then the real videos one by one. On an 8 GB laptop GPU
-  expect roughly 20 to 40 minutes per 6-second video, so the full set can take most of a
+  expect roughly 30 to 60 minutes per 6-second video on a 6 GB card, so the full set can take most of a
   night. It can be stopped and restarted: finished videos are skipped.
 
 If anything fails, the script stops by itself and still creates a zip of the logs.

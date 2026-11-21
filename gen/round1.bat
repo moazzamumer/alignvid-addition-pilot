@@ -26,6 +26,7 @@ if errorlevel 1 (
 echo [round1] installing torch (CUDA 12.8 build, ~3 GB download) ... see logs\pip_torch.txt
 %PY% -m pip install --upgrade pip >> logs\pip_torch.txt 2>&1
 %PY% -c "import torch, sys; sys.exit(0 if torch.cuda.is_available() else 1)" 2>nul || %PY% -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128 >> logs\pip_torch.txt 2>&1
+%PY% -c "import torch, sys; sys.exit(0 if torch.cuda.is_available() else 1)" 2>nul || %PY% -m pip install torch torchvision >> logs\pip_torch.txt 2>&1
 echo [round1] installing FramePack requirements ... see logs\pip_requirements.txt
 %PY% -m pip install -r gen\requirements-laptop.txt >> logs\pip_requirements.txt 2>&1
 if errorlevel 1 echo [round1] WARNING: some requirements failed to install; continuing so the env log is still written.
