@@ -23,3 +23,5 @@ pymongo
 cffi
 cryptography
 psutil
+# not listed by AlignVid but imported by diffusers_helper/models/hunyuan_video_packed.py (found at C3 on Kaggle, 2026-11-22)
+matplotlib
