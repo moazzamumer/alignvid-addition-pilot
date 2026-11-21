@@ -19,7 +19,8 @@ Stages (all resumable; existing mp4 files are skipped):
   python gen/run_pilot.py                 # everything
   python gen/run_pilot.py --stage env     # one stage
   python gen/run_pilot.py --skip-noedit
-  python gen/run_pilot.py --dry           # local test: a fake generator replaces FramePack"""
+  python gen/run_pilot.py --dry           # local test: a fake generator replaces FramePack
+  python gen/run_pilot.py --quiet --sync-dir /kaggle/working   # Kaggle"""
 import argparse, datetime, hashlib, json, os, platform, shutil, subprocess, sys, time, zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,7 +34,9 @@ ARMS = {"vanilla": ("1.0", "data/pilot5.json"), "alignvid": ("1.35", "data/pilot
 PROBE_ID = "sample_240"
 DRYRUN_LADDER = [("2.0", "6"), ("1.0", "6")]  # C3 on a 6 GB card: shorter clip if OOM; 6 GB preserved is already the maximum useful value
 LENGTH_LADDER = ["6.0", "3.0", "2.0"]  # §6
-HOST = platform.node() or "machine"
+HOST = os.environ.get("PILOT_HOST") or platform.node() or "machine"
+QUIET = False
+SYNC_DIR = None
 LOGS = os.path.join(ROOT, "logs"); OUT = os.path.join(ROOT, "outputs"); STATE = os.path.join(LOGS, "run_state.json")
 
 
@@ -147,6 +150,16 @@ def one_record_file(prompt_file, sid, out_dir):
     json.dump(recs, open(p, "w", encoding="utf-8"), indent=1, ensure_ascii=False); return p
 
 
+def sync(paths):
+    """Copy finished files to SYNC_DIR (e.g. /kaggle/working) keeping the relative layout."""
+    if not SYNC_DIR:
+        return
+    for p in paths:
+        if os.path.exists(p):
+            dst = os.path.join(SYNC_DIR, os.path.relpath(p, ROOT)); os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy2(p, dst)
+
+
 def generate(arm, sid, length, gpu_mem, dry=False, out_dir=None):
     """One FramePack process for one video.  Returns the run record (ok True/False)."""
     control, prompt_file = ARMS[arm]
@@ -165,7 +178,8 @@ def generate(arm, sid, length, gpu_mem, dry=False, out_dir=None):
            "HF_HUB_DISABLE_XET": "1", "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
     os.environ.update(env)
     log(f"{arm}/{sid}: start length={length} gpu_mem={gpu_mem} control_scale={control}")
-    rec = run_command(cmd, os.path.join(LOGS, f"{arm}_{sid}__len{length}_gm{gpu_mem}.json"), cwd=FP_DIR, arm=arm, id=sid, length=float(length),
+    log_path = os.path.join(LOGS, f"{arm}_{sid}__len{length}_gm{gpu_mem}.json")
+    rec = run_command(cmd, log_path, cwd=FP_DIR, echo=not QUIET, arm=arm, id=sid, length=float(length),
                       gpu_mem=float(gpu_mem), control_scale=float(control), fixed_flags=FIXED, seed=31337, version_file=version_info())
     rec["ok"] = rec["ok"] and os.path.exists(mp4)
     if rec["ok"]:
@@ -174,8 +188,10 @@ def generate(arm, sid, length, gpu_mem, dry=False, out_dir=None):
         side["versions"] = rec["sysinfo"]["versions"]; side["gpu"] = rec["sysinfo"]["gpu"]; side["host"] = HOST
         json.dump(side, open(os.path.join(out_dir, f"{sid}.json"), "w"), indent=1)
         log(f"{arm}/{sid}: done in {rec['wall_seconds']} s, GPU peak {rec['peak_gpu_used_mb_nvidia_smi']} MB, RSS {rec['child_peak_rss_gb']} GB")
+        sync([mp4, os.path.join(out_dir, f"{sid}.json"), log_path, os.path.join(LOGS, "run_pilot.log"), STATE])
     else:
         log(f"{arm}/{sid}: FAILED exit {rec['exit_code']} after {rec['wall_seconds']} s; tail: {' | '.join(rec['output_tail'][-3:])}")
+        sync([log_path, os.path.join(LOGS, "run_pilot.log")])
         for f in os.listdir(out_dir):  # remove partial outputs for this id so a rerun is clean
             if f.startswith(sid) and f.endswith(".mp4"):
                 os.remove(os.path.join(out_dir, f))
@@ -205,11 +221,11 @@ def stage_length(dry):
     log("length probe FAILED at 6.0, 3.0 and 2.0; stopping."); state(length_failed=True); return False
 
 
-def stage_arms(dry, skip_noedit):
+def stage_arms(dry, skip_noedit, arms=None):
     st = state(); L, gm = st["length"], st["gpu_mem"]
     ids = [r["id"] for r in json.load(open(os.path.join(ROOT, "data", "pilot5.json"), encoding="utf-8"))]
     results = st.get("results", {})
-    for arm in ["vanilla", "alignvid"] + ([] if skip_noedit else ["noedit"]):
+    for arm in arms or (["vanilla", "alignvid"] + ([] if skip_noedit else ["noedit"])):
         for sid in ids:
             rec = generate(arm, sid, L, gm, dry)
             results[f"{arm}/{sid}"] = {"ok": rec["ok"], "wall_seconds": rec.get("wall_seconds"), "exit": rec.get("exit_code")}
@@ -227,6 +243,7 @@ def stage_pack():
                 for f in fs:
                     z.write(os.path.join(dp, f), os.path.relpath(os.path.join(dp, f), ROOT))
     log(f"packed {name} ({round(os.path.getsize(p) / 2**20, 1)} MB). Upload this file.")
+    sync([p] + [os.path.join(dp, f) for dp, _, fs in os.walk(LOGS) for f in fs])
     return True
 
 
@@ -235,12 +252,17 @@ def main():
     ap.add_argument("--stage", choices=["env", "patch", "weights", "dryrun", "length", "arms", "pack"], help="run one stage only")
     ap.add_argument("--skip-noedit", action="store_true")
     ap.add_argument("--dry", action="store_true", help="local test with gen/fake_generator.py")
+    ap.add_argument("--quiet", action="store_true", help="do not echo FramePack's own output (it is kept in the per-attempt log)")
+    ap.add_argument("--sync-dir", help="copy finished videos, sidecars and logs here as they appear (Kaggle: /kaggle/working)")
+    ap.add_argument("--arms", nargs="*", choices=list(ARMS), help="restrict the arms stage, e.g. --arms vanilla")
     a = ap.parse_args()
+    global QUIET, SYNC_DIR
+    QUIET, SYNC_DIR = a.quiet, a.sync_dir
     os.makedirs(LOGS, exist_ok=True); os.makedirs(OUT, exist_ok=True)
     log(f"run_pilot start root={ROOT} dry={a.dry} version={version_info()}")
     stages = [("env", lambda: a.dry or stage_env()), ("patch", stage_patch), ("weights", lambda: a.dry or stage_weights()),
               ("dryrun", lambda: stage_dryrun(a.dry)),
-              ("length", lambda: stage_length(a.dry)), ("arms", lambda: stage_arms(a.dry, a.skip_noedit)), ("pack", stage_pack)]
+              ("length", lambda: stage_length(a.dry)), ("arms", lambda: stage_arms(a.dry, a.skip_noedit, a.arms)), ("pack", stage_pack)]
     for name, fn in stages:
         if a.stage and a.stage != name:
             continue

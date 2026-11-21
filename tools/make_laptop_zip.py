@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble the generation package for a remote machine into handoff/ (gitignored):
+"""Assemble the generation package for a remote machine or Kaggle into handoff/ (gitignored):
 gen/, measure/sysinfo.py, the FramePack code (no weights), data/pilot5.json,
 data/noedit5.json, the five reference images, and VERSION.json with the commits."""
 import argparse, datetime, json, os, subprocess, zipfile
@@ -18,8 +18,8 @@ def git(args, cwd=None):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--out", default="handoff/pilot_laptop.zip")
-    ap.add_argument("--rootname", default="pilot_laptop")
+    ap.add_argument("--out", default="handoff/pilot_package.zip")
+    ap.add_argument("--rootname", default="pilot_package")
     a = ap.parse_args()
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     version = {"packaged": datetime.datetime.now().isoformat(timespec="seconds"), "repo_commit": git(["rev-parse", "--short", "HEAD"]),

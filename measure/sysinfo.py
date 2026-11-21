@@ -169,7 +169,7 @@ class Run:
         return False
 
 
-def run_command(cmd, log_path, cwd=None, tail=60, **meta):
+def run_command(cmd, log_path, cwd=None, tail=60, echo=True, **meta):
     """Run cmd as a child, stream its output, record wall time, exit code, child peak RSS, nvidia-smi peak."""
     poller = GpuPoller(); poller.start()
     t0 = time.time(); start = datetime.datetime.now().isoformat(timespec="seconds")
@@ -178,7 +178,9 @@ def run_command(cmd, log_path, cwd=None, tail=60, **meta):
                          encoding="utf-8", errors="replace")
     rss = RssPoller(p.pid); rss.start()
     for ln in p.stdout:
-        sys.stdout.write(ln); sys.stdout.flush(); lines.append(ln.rstrip("\n"))
+        if echo:
+            sys.stdout.write(ln); sys.stdout.flush()
+        lines.append(ln.rstrip("\n"))
         if len(lines) > 5000:
             lines = lines[-tail:]
     p.wait(); poller.stop(); rss.stop()
