@@ -1,0 +1,335 @@
+{
+ "id": "sample_188",
+ "query": "person",
+ "frames_dir": "outputs/vanilla/frames/sample_188",
+ "n_frames": 16,
+ "frame_size": [
+  768,
+  512
+ ],
+ "thresholds": {
+  "box": 0.45,
+  "text": 0.35,
+  "k": 4,
+  "pre_existing_iou": 0.5
+ },
+ "crop_map": {
+  "scale": 0.4,
+  "resized": [
+   768,
+   512
+  ],
+  "left": 0.0,
+  "top": 0.0,
+  "frame": [
+   768,
+   512
+  ],
+  "orig": [
+   1920,
+   1280
+  ]
+ },
+ "regions_norm_original": {
+  "A": [
+   0.2951,
+   0.0268,
+   0.8065,
+   0.9695
+  ],
+  "B": [
+   0.0016,
+   0.0902,
+   0.3016,
+   0.9244
+  ]
+ },
+ "regions_px_frame": {
+  "A": [
+   226.6368,
+   13.721600000000002,
+   619.392,
+   496.384
+  ],
+  "B": [
+   1.2288000000000001,
+   46.1824,
+   231.6288,
+   473.2928
+  ]
+ },
+ "free_placement": false,
+ "reference_image": "data/OmitI2V/addition/object/human/sample_188.jpg",
+ "reference_dets": [],
+ "detected_frames": [
+  "f04",
+  "f05",
+  "f06",
+  "f07",
+  "f08",
+  "f09",
+  "f10",
+  "f11",
+  "f12",
+  "f13",
+  "f14",
+  "f15"
+ ],
+ "n_detected": 12,
+ "present": true,
+ "onset_frame": "f04",
+ "onset_index": 4,
+ "persistence": 1.0,
+ "best_box": {
+  "box": [
+   531.5,
+   187.5,
+   767.5,
+   511.4
+  ],
+  "score": 0.717,
+  "label": "person",
+  "pre_existing": false,
+  "frac_in_region": 0.358,
+  "frame": "f06"
+ },
+ "placement": "partial",
+ "per_frame": [
+  {
+   "frame": "f00",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f01",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f02",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f03",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f04",
+   "dets": [
+    {
+     "box": [
+      674.3,
+      215.0,
+      767.6,
+      511.5
+     ],
+     "score": 0.483,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.0
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f05",
+   "dets": [
+    {
+     "box": [
+      602.4,
+      192.5,
+      767.5,
+      511.3
+     ],
+     "score": 0.59,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.103
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f06",
+   "dets": [
+    {
+     "box": [
+      531.5,
+      187.5,
+      767.5,
+      511.4
+     ],
+     "score": 0.717,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.358
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f07",
+   "dets": [
+    {
+     "box": [
+      488.0,
+      189.9,
+      767.6,
+      511.3
+     ],
+     "score": 0.684,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.45
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f08",
+   "dets": [
+    {
+     "box": [
+      483.7,
+      197.1,
+      767.6,
+      511.3
+     ],
+     "score": 0.647,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.458
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f09",
+   "dets": [
+    {
+     "box": [
+      483.5,
+      198.5,
+      767.5,
+      511.3
+     ],
+     "score": 0.656,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.458
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f10",
+   "dets": [
+    {
+     "box": [
+      487.0,
+      191.9,
+      767.7,
+      511.4
+     ],
+     "score": 0.661,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.451
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f11",
+   "dets": [
+    {
+     "box": [
+      489.6,
+      199.1,
+      767.6,
+      511.4
+     ],
+     "score": 0.681,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.447
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f12",
+   "dets": [
+    {
+     "box": [
+      490.8,
+      198.9,
+      767.6,
+      511.4
+     ],
+     "score": 0.666,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.445
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f13",
+   "dets": [
+    {
+     "box": [
+      488.9,
+      198.6,
+      767.6,
+      511.4
+     ],
+     "score": 0.699,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.449
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f14",
+   "dets": [
+    {
+     "box": [
+      484.6,
+      198.5,
+      767.5,
+      511.3
+     ],
+     "score": 0.668,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.456
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f15",
+   "dets": [
+    {
+     "box": [
+      479.5,
+      198.4,
+      767.5,
+      511.3
+     ],
+     "score": 0.649,
+     "label": "person",
+     "pre_existing": false,
+     "frac_in_region": 0.465
+    }
+   ],
+   "n_counted": 1
+  }
+ ]
+}

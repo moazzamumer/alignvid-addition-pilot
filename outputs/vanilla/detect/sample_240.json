@@ -1,0 +1,154 @@
+{
+ "id": "sample_240",
+ "query": "world globe on a wooden stand",
+ "frames_dir": "outputs/vanilla/frames/sample_240",
+ "n_frames": 16,
+ "frame_size": [
+  768,
+  512
+ ],
+ "thresholds": {
+  "box": 0.45,
+  "text": 0.35,
+  "k": 4,
+  "pre_existing_iou": 0.5
+ },
+ "crop_map": {
+  "scale": 0.4,
+  "resized": [
+   768,
+   512
+  ],
+  "left": 0.0,
+  "top": 0.0,
+  "frame": [
+   768,
+   512
+  ],
+  "orig": [
+   1920,
+   1280
+  ]
+ },
+ "regions_norm_original": {
+  "A": [
+   0.2813,
+   0.4207,
+   0.426,
+   0.8329
+  ],
+  "B": [
+   0.8122,
+   0.5341,
+   1.0,
+   0.9988
+  ]
+ },
+ "regions_px_frame": {
+  "A": [
+   216.03840000000002,
+   215.3984,
+   327.168,
+   426.44480000000004
+  ],
+  "B": [
+   623.7696000000001,
+   273.4592,
+   768,
+   511.3856
+  ]
+ },
+ "free_placement": false,
+ "reference_image": "data/OmitI2V/addition/object/object/sample_240.jpg",
+ "reference_dets": [],
+ "detected_frames": [],
+ "n_detected": 0,
+ "present": false,
+ "onset_frame": null,
+ "onset_index": null,
+ "persistence": null,
+ "best_box": null,
+ "placement": null,
+ "per_frame": [
+  {
+   "frame": "f00",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f01",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f02",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f03",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f04",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f05",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f06",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f07",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f08",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f09",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f10",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f11",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f12",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f13",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f14",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f15",
+   "dets": [],
+   "n_counted": 0
+  }
+ ]
+}

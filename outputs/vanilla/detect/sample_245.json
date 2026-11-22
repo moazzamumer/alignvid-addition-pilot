@@ -1,0 +1,382 @@
+{
+ "id": "sample_245",
+ "query": "jewel-encrusted egg",
+ "frames_dir": "outputs/vanilla/frames/sample_245",
+ "n_frames": 16,
+ "frame_size": [
+  832,
+  480
+ ],
+ "thresholds": {
+  "box": 0.45,
+  "text": 0.35,
+  "k": 4,
+  "pre_existing_iou": 0.5
+ },
+ "crop_map": {
+  "scale": 0.4343891402714932,
+  "resized": [
+   834,
+   480
+  ],
+  "left": 1.0,
+  "top": 0.0,
+  "frame": [
+   832,
+   480
+  ],
+  "orig": [
+   1920,
+   1105
+  ]
+ },
+ "regions_norm_original": {
+  "A": [
+   0.4001,
+   0.4793,
+   0.8008,
+   0.8646
+  ]
+ },
+ "regions_px_frame": {
+  "A": [
+   332.6942624434389,
+   230.064,
+   666.8889411764706,
+   415.00800000000004
+  ]
+ },
+ "free_placement": false,
+ "reference_image": "data/OmitI2V/addition/object/object/sample_245.jpg",
+ "reference_dets": [
+  {
+   "box": [
+    1378.3,
+    728.2,
+    1555.7,
+    878.5
+   ],
+   "score": 0.468,
+   "label": "encr egg",
+   "box_in_frame": [
+    597.7185520361991,
+    316.32217194570137,
+    674.779185520362,
+    381.6108597285068
+   ]
+  }
+ ],
+ "detected_frames": [
+  "f01",
+  "f02",
+  "f03",
+  "f04",
+  "f05",
+  "f06",
+  "f07",
+  "f08",
+  "f09",
+  "f10",
+  "f11",
+  "f12",
+  "f13",
+  "f14",
+  "f15"
+ ],
+ "n_detected": 15,
+ "present": true,
+ "onset_frame": "f01",
+ "onset_index": 1,
+ "persistence": 1.0,
+ "best_box": {
+  "box": [
+   367.5,
+   14.4,
+   683.2,
+   431.3
+  ],
+  "score": 0.76,
+  "label": "egg",
+  "pre_existing": false,
+  "frac_in_region": 0.421,
+  "frame": "f08"
+ },
+ "placement": "partial",
+ "per_frame": [
+  {
+   "frame": "f00",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f01",
+   "dets": [
+    {
+     "box": [
+      354.6,
+      0.5,
+      669.5,
+      300.0
+     ],
+     "score": 0.72,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.231
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f02",
+   "dets": [
+    {
+     "box": [
+      366.9,
+      18.5,
+      678.5,
+      432.5
+     ],
+     "score": 0.753,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.431
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f03",
+   "dets": [
+    {
+     "box": [
+      367.0,
+      18.3,
+      678.3,
+      431.9
+     ],
+     "score": 0.752,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.432
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f04",
+   "dets": [
+    {
+     "box": [
+      367.6,
+      16.8,
+      680.4,
+      431.1
+     ],
+     "score": 0.755,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.427
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f05",
+   "dets": [
+    {
+     "box": [
+      367.7,
+      16.3,
+      680.8,
+      431.2
+     ],
+     "score": 0.757,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.427
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f06",
+   "dets": [
+    {
+     "box": [
+      367.6,
+      16.2,
+      680.7,
+      431.1
+     ],
+     "score": 0.758,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.427
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f07",
+   "dets": [
+    {
+     "box": [
+      367.7,
+      14.9,
+      682.0,
+      431.1
+     ],
+     "score": 0.757,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.424
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f08",
+   "dets": [
+    {
+     "box": [
+      367.5,
+      14.4,
+      683.2,
+      431.3
+     ],
+     "score": 0.76,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.421
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f09",
+   "dets": [
+    {
+     "box": [
+      367.6,
+      14.3,
+      683.5,
+      431.3
+     ],
+     "score": 0.759,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.421
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f10",
+   "dets": [
+    {
+     "box": [
+      368.0,
+      11.8,
+      686.8,
+      432.4
+     ],
+     "score": 0.754,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.413
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f11",
+   "dets": [
+    {
+     "box": [
+      368.0,
+      10.7,
+      689.0,
+      432.9
+     ],
+     "score": 0.758,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.41
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f12",
+   "dets": [
+    {
+     "box": [
+      368.0,
+      9.7,
+      691.0,
+      433.6
+     ],
+     "score": 0.753,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.405
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f13",
+   "dets": [
+    {
+     "box": [
+      368.6,
+      6.5,
+      694.6,
+      433.8
+     ],
+     "score": 0.756,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.397
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f14",
+   "dets": [
+    {
+     "box": [
+      369.3,
+      4.0,
+      697.1,
+      434.2
+     ],
+     "score": 0.753,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.391
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f15",
+   "dets": [
+    {
+     "box": [
+      369.1,
+      2.0,
+      699.8,
+      435.0
+     ],
+     "score": 0.754,
+     "label": "egg",
+     "pre_existing": false,
+     "frac_in_region": 0.387
+    }
+   ],
+   "n_counted": 1
+  }
+ ]
+}

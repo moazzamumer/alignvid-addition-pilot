@@ -1,0 +1,211 @@
+{
+ "id": "sample_208",
+ "query": "stag",
+ "frames_dir": "outputs/vanilla/frames/sample_208",
+ "n_frames": 16,
+ "frame_size": [
+  768,
+  512
+ ],
+ "thresholds": {
+  "box": 0.45,
+  "text": 0.35,
+  "k": 4,
+  "pre_existing_iou": 0.5
+ },
+ "crop_map": {
+  "scale": 0.4,
+  "resized": [
+   768,
+   512
+  ],
+  "left": 0.0,
+  "top": 0.0,
+  "frame": [
+   768,
+   512
+  ],
+  "orig": [
+   1920,
+   1280
+  ]
+ },
+ "regions_norm_original": {
+  "A": [
+   0.0016,
+   0.1817,
+   0.9967,
+   0.4671
+  ]
+ },
+ "regions_px_frame": {
+  "A": [
+   1.2288000000000001,
+   93.0304,
+   765.4656,
+   239.15520000000004
+  ]
+ },
+ "free_placement": false,
+ "reference_image": "data/OmitI2V/addition/object/animal/sample_208.jpg",
+ "reference_dets": [],
+ "detected_frames": [
+  "f12",
+  "f13",
+  "f14",
+  "f15"
+ ],
+ "n_detected": 4,
+ "present": true,
+ "onset_frame": "f12",
+ "onset_index": 12,
+ "persistence": 1.0,
+ "best_box": {
+  "box": [
+   312.3,
+   62.5,
+   649.6,
+   405.2
+  ],
+  "score": 0.912,
+  "label": "stag",
+  "pre_existing": false,
+  "frac_in_region": 0.427,
+  "frame": "f12"
+ },
+ "placement": "partial",
+ "per_frame": [
+  {
+   "frame": "f00",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f01",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f02",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f03",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f04",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f05",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f06",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f07",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f08",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f09",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f10",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f11",
+   "dets": [],
+   "n_counted": 0
+  },
+  {
+   "frame": "f12",
+   "dets": [
+    {
+     "box": [
+      312.3,
+      62.5,
+      649.6,
+      405.2
+     ],
+     "score": 0.912,
+     "label": "stag",
+     "pre_existing": false,
+     "frac_in_region": 0.427
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f13",
+   "dets": [
+    {
+     "box": [
+      314.4,
+      61.0,
+      652.0,
+      404.2
+     ],
+     "score": 0.91,
+     "label": "stag",
+     "pre_existing": false,
+     "frac_in_region": 0.427
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f14",
+   "dets": [
+    {
+     "box": [
+      316.1,
+      60.7,
+      653.7,
+      404.2
+     ],
+     "score": 0.912,
+     "label": "stag",
+     "pre_existing": false,
+     "frac_in_region": 0.426
+    }
+   ],
+   "n_counted": 1
+  },
+  {
+   "frame": "f15",
+   "dets": [
+    {
+     "box": [
+      317.7,
+      60.9,
+      654.5,
+      404.6
+     ],
+     "score": 0.909,
+     "label": "stag",
+     "pre_existing": false,
+     "frac_in_region": 0.426
+    }
+   ],
+   "n_counted": 1
+  }
+ ]
+}

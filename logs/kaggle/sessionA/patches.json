@@ -1,0 +1,56 @@
+[
+ {
+  "id": "dist-backend",
+  "file": "external/AlignVid/models/FramePack/diffusers_helper/parallel_mgr.py",
+  "why": "NCCL does not exist on Windows; one-process group init before any model is loaded.",
+  "sha256_before": "361fe9148b394f5f7055b2aca05bc7f5fe5482c1e4de075a739afab55679004a",
+  "applied": true,
+  "already": false,
+  "sha256_after": "d911a33814580fded55cb9bb6cc6ac250e8acb15de6869b6edc0ecaca1ff3a49"
+ },
+ {
+  "id": "lowvram-text-encode-1",
+  "file": "external/AlignVid/models/FramePack/inference_f1_json.py",
+  "why": "Low-VRAM branch (free VRAM <= 60 GB) lacked the two upstream FramePack lines that place the text encoders before encoding; without them input ids go to CPU while the swapped embedding weights are on the GPU (device mismatch at C3 on Kaggle T4).",
+  "sha256_before": "3abad9be966ee8b14781ee6d84231f4ccc543ddc9df3904ffd4e98db494579b6",
+  "applied": true,
+  "already": false,
+  "sha256_after": "2201a8f81d2d9ee4d81185c81fa79789325edd30df211cc581f2babbc22899bd"
+ },
+ {
+  "id": "lowvram-text-encode-2",
+  "file": "external/AlignVid/models/FramePack/inference_f1_json.py",
+  "why": "Same fix for the per-section prompt encode inside the generation loop.",
+  "sha256_before": "2201a8f81d2d9ee4d81185c81fa79789325edd30df211cc581f2babbc22899bd",
+  "applied": true,
+  "already": false,
+  "sha256_after": "47cd6a4b4cd5e78971f737d34e137e5d0cfa53f68cb306ff0724737f481f66dc"
+ },
+ {
+  "id": "sdpa-query-chunks",
+  "file": "external/AlignVid/models/FramePack/diffusers_helper/models/hunyuan_video_packed.py",
+  "why": "Tesla T4 (sm_75) has no flash/mem-efficient bf16 SDPA kernel; the math fallback tried to allocate 30 GiB for the score matrix (C3 OOM, 2026-11-22). Query chunking computes the same softmax(QK^T)V per query row; only the memory layout changes. Inactive on sm_80+ unless ATTN_Q_CHUNK is set.",
+  "sha256_before": "44b06cd867873544662e2f35bf1e72b1c6f8020159ab079eb8fc8cb4ed8683e6",
+  "applied": true,
+  "already": false,
+  "sha256_after": "6b272fcfc14321b4b7f991150cd34d9615384af63ac5bf0b865ec4a214100884"
+ },
+ {
+  "id": "transformer-dtype-env",
+  "file": "external/AlignVid/models/FramePack/inference_f1_json.py",
+  "why": "Tesla T4 (sm_75) emulates bf16: the bf16 dry run took 8358 s for a 2 s clip (C3, 2026-11-22). fp16 uses the T4 tensor cores. Off unless PILOT_TRANSFORMER_DTYPE=fp16; the value used is recorded in each attempt log.",
+  "sha256_before": "47cd6a4b4cd5e78971f737d34e137e5d0cfa53f68cb306ff0724737f481f66dc",
+  "applied": true,
+  "already": false,
+  "sha256_after": "27c6af62ad9906558262cdbbc260251756a1dac27ec8c6b2ecd1bb37958edadc"
+ },
+ {
+  "id": "fp32-residual",
+  "file": "external/AlignVid/models/FramePack/diffusers_helper/models/hunyuan_video_packed.py",
+  "why": "fp16 dry run on the T4 gave an all-black clip: the NaN probe (gen/nan_probe.py) showed the first Inf in transformer_blocks.7's residual add, with finite sub-layer outputs (<= 1940) but a residual stream already at 29760 (hidden) / 51328 (text). Large residual channels are a property of this model family. Residual kept in fp32, the gated residual updates computed in fp32, and the three projections that write into the residual (MLP down-projections, single-block proj_out) return fp32 from fp16 operands; other matmuls stay fp16. Inactive in bf16.",
+  "sha256_before": "6b272fcfc14321b4b7f991150cd34d9615384af63ac5bf0b865ec4a214100884",
+  "applied": true,
+  "already": false,
+  "sha256_after": "c005cbe5d9607afe48ca939ccc2712457b146798506871d53316dca434c78c53"
+ }
+]

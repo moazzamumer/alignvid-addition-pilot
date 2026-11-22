@@ -1,0 +1,76 @@
+{
+ "arm": "vanilla",
+ "id": "sample_240",
+ "length": 6.0,
+ "gpu_mem": 6.0,
+ "control_scale": 1.0,
+ "fixed_flags": [
+  "--seed",
+  "31337",
+  "--steps",
+  "25",
+  "--cfg",
+  "1.0",
+  "--gs",
+  "10.0",
+  "--rs",
+  "0.0",
+  "--teacache",
+  "True"
+ ],
+ "seed": 31337,
+ "start": "2026-11-22T04:56:24",
+ "end": "2026-11-22T05:55:46",
+ "wall_seconds": 3561.76,
+ "child_peak_rss_gb": 28.52,
+ "peak_gpu_used_mb_nvidia_smi": 13037.0,
+ "version_file": {
+  "packaged": "2026-11-22T09:43:36",
+  "repo_commit": "362af89",
+  "alignvid_commit": "9f3e48d76e19fa44e7ca93f0466ca92fb24775c2",
+  "protocol_frozen_commit": "ec4d9e4",
+  "protocol_frozen_on": "2026-11-18"
+ },
+ "versions": {
+  "python": "3.11.18",
+  "torch": "2.11.0+cu128",
+  "torchvision": "0.26.0+cu128",
+  "diffusers": "0.33.1",
+  "transformers": "4.46.2",
+  "accelerate": "1.6.0",
+  "cv2": "4.10.0",
+  "numpy": "1.26.2",
+  "PIL": "11.1.0",
+  "imageio": "2.38.2",
+  "safetensors": "0.8.0",
+  "huggingface_hub": "0.30.2",
+  "psutil": "7.2.2"
+ },
+ "gpu": {
+  "nvidia_smi": [
+   {
+    "name": "Tesla T4",
+    "vram_total_mb": "15360",
+    "driver": "580.178.04"
+   },
+   {
+    "name": "Tesla T4",
+    "vram_total_mb": "15360",
+    "driver": "580.178.04"
+   }
+  ],
+  "torch_cuda": {
+   "available": true,
+   "version": "12.8",
+   "devices": [
+    "Tesla T4",
+    "Tesla T4"
+   ],
+   "total_mem_gb": [
+    14.56,
+    14.56
+   ]
+  }
+ },
+ "host": "kaggle"
+}

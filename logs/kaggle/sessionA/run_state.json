@@ -1,0 +1,35 @@
+{
+ "gpu_mem": "6",
+ "length": "6.0",
+ "length_probe": {
+  "length": "6.0",
+  "wall_seconds": 3561.76
+ },
+ "results": {
+  "vanilla/sample_240": {
+   "ok": true,
+   "wall_seconds": null,
+   "exit": null
+  },
+  "vanilla/sample_188": {
+   "ok": true,
+   "wall_seconds": 3321.95,
+   "exit": 0
+  },
+  "vanilla/sample_208": {
+   "ok": true,
+   "wall_seconds": 3314.72,
+   "exit": 0
+  },
+  "vanilla/sample_245": {
+   "ok": true,
+   "wall_seconds": 3418.41,
+   "exit": 0
+  },
+  "vanilla/sample_116": {
+   "ok": true,
+   "wall_seconds": 3319.46,
+   "exit": 0
+  }
+ }
+}

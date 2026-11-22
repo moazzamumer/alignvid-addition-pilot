@@ -1,0 +1,78 @@
+{
+ "script": "detect.py",
+ "args": {
+  "arm": "vanilla",
+  "ids": [
+   "sample_240",
+   "sample_188",
+   "sample_208",
+   "sample_245",
+   "sample_116"
+  ],
+  "frames": null,
+  "query": null,
+  "ref": null,
+  "regions_norm": null,
+  "out": null,
+  "regions": "data/regions/regions.json",
+  "queries": "data/detector_queries.json",
+  "meta": "data/OmitI2V/meta.json",
+  "model": null
+ },
+ "git_hash": "631d170",
+ "versions": {
+  "python": "3.11.2",
+  "cv2": "5.1.0",
+  "numpy": "2.4.6",
+  "PIL": "13.0.0",
+  "torch": "2.15.0+cpu",
+  "transformers": "5.23.0",
+  "torchvision": "0.29.2+cpu"
+ },
+ "host": "moazzam-hp",
+ "model": "IDEA-Research/grounding-dino-tiny",
+ "device": "cpu",
+ "start": "2026-11-22T22:52:35",
+ "summary": {
+  "sample_240": {
+   "present": false,
+   "n_detected": 0,
+   "onset_frame": null,
+   "persistence": null,
+   "placement": null
+  },
+  "sample_188": {
+   "present": true,
+   "n_detected": 12,
+   "onset_frame": "f04",
+   "persistence": 1.0,
+   "placement": "partial"
+  },
+  "sample_208": {
+   "present": true,
+   "n_detected": 4,
+   "onset_frame": "f12",
+   "persistence": 1.0,
+   "placement": "partial"
+  },
+  "sample_245": {
+   "present": true,
+   "n_detected": 15,
+   "onset_frame": "f01",
+   "persistence": 1.0,
+   "placement": "partial"
+  },
+  "sample_116": {
+   "present": false,
+   "n_detected": 1,
+   "onset_frame": "f08",
+   "persistence": 0.125,
+   "placement": "out"
+  }
+ },
+ "end": "2026-11-22T23:02:52",
+ "wall_seconds": 617.29,
+ "peak_rss_mb": 2738.7,
+ "ok": true,
+ "error": null
+}
