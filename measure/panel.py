@@ -76,7 +76,7 @@ def draw_text(dr, xy, text, fnt, fill=(0, 0, 0), width_px=None):
     return y
 
 
-def build_panel(vid, sample, meta_row, window, arms, frames_root, labels, out_path, root_img):
+def build_panel(vid, sample, meta_row, window, arms, frames_root, labels, out_path, root_img, freeze=""):
     # reference with regions
     ref = Image.open(os.path.join(root_img, sample["image_path"])).convert("RGB")
     rw, rh = ref.size; ref_s = ref.resize((REF_W, int(REF_W * rh / rw)))
@@ -92,6 +92,8 @@ def build_panel(vid, sample, meta_row, window, arms, frames_root, labels, out_pa
     im.paste(ref_s, (PAD, PAD))
     x = PAD + REF_W + PAD; y = PAD
     d.text((x, y), vid, font=FB, fill=(0, 0, 0)); y += 38
+    if freeze:
+        y = draw_text(d, (x, y), freeze, FS, fill=(60, 60, 60), width_px=W - x - PAD) + 4
     y = draw_text(d, (x, y), "Instruction: " + meta_row["prompt"], F, width_px=W - x - PAD)
     y = draw_text(d, (x, y + 6), "Window: " + window, FS, fill=(60, 60, 60), width_px=W - x - PAD)
     y = draw_text(d, (x, y + 6), "Regions: " + "; ".join(f"{k} [{', '.join(f'{v:.3f}' for v in r['final'])}]" for k, r in sample["regions"].items()),
@@ -134,12 +136,16 @@ def main():
     a = ap.parse_args()
     regions = json.load(open(a.regions))["samples"]
     meta = {m["id"]: m for m in json.load(open(a.meta, encoding="utf-8"))}
-    windows = {}
+    windows, kv = {}, {}
     if os.path.exists(a.protocol):
         for ln in open(a.protocol, encoding="utf-8"):
             if ln.startswith("| sample_") and "onset" in ln:
                 c = [v.strip() for v in ln.strip().strip("|").split("|")]
                 windows[c[0]] = c[1].replace("`", "")
+            for key, tag in (("on", "**Frozen on:**"), ("commit", "**Frozen at commit:**")):
+                if ln.startswith(tag):
+                    kv[key] = ln[len(tag):].strip().strip("`")
+    freeze = f"Protocol frozen {kv['on']}, commit {kv['commit']}" if kv else ""
     labels = load_labels(a.labels, a.blind_map)
     os.makedirs(a.out, exist_ok=True)
     with Sidecar(os.path.join(a.out, "panel.sidecar.json"), a) as sc:
@@ -147,11 +153,11 @@ def main():
         for vid in (a.ids or list(regions)):
             p = os.path.join(a.out, f"{vid}.png")
             pages.append(build_panel(vid, regions[vid], meta[vid], windows.get(vid, "n/a"), a.arms, a.frames_root, labels, p,
-                                     os.path.dirname(a.meta)))
+                                     os.path.dirname(a.meta), freeze))
             print("wrote", p)
         pdf = os.path.join(a.out, a.pdf)
         pages[0].save(pdf, save_all=True, append_images=pages[1:], resolution=150)
-        sc.add(pages=len(pages), pdf=pdf, labels_found=len(labels))
+        sc.add(pages=len(pages), pdf=pdf, labels_found=len(labels), freeze=freeze)
         print("wrote", pdf)
 
 

@@ -75,3 +75,4 @@ data/regions/annotations/*_discarded_*
 models/
 results_*.zip
 outputs/**/*.prompt.json
+labels/kit/
