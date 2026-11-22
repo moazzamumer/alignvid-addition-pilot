@@ -1,0 +1,32 @@
+Currently enabled native sdp backends: ['flash', 'math', 'mem_efficient', 'cudnn']
+Xformers is not installed!
+Flash Attn is not installed!
+Sage Attn is not installed!
+args Namespace(prompt_file='/kaggle/tmp/pilot/pilot_package/outputs/dryrun_bf16/sample_240.prompt.json', output_dir='/kaggle/tmp/pilot/pilot_package/outputs/probe', data_dir='/kaggle/tmp/pilot/pilot_package/data/OmitI2V', n_prompt='', seed=31337, length=2.0, window=9, steps=25, cfg=1.0, gs=10.0, rs=0.0, gpu_mem=6.0, teacache='True', blur_img=False, control_scale=1.0)
+Free VRAM: 14.45977783203125 GB, High-VRAM Mode: False
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards: 100%|██████████| 4/4 [00:00<00:00, 1502.66it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.48it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.31it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  3.38it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.92it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.70it/s]
+Pilot: transformer dtype torch.float16
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files: 100%|██████████| 3/3 [00:00<00:00, 1154.71it/s]
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:40<01:20, 40.27s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [01:20<00:40, 40.46s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:44<00:00, 32.82s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:44<00:00, 34.87s/it]
+NAN PROBE installed on 1406 modules
+Total latent sections: 2, Total frames: 69
+Unloaded DynamicSwap_LlamaModel as complete.
+Unloaded CLIPTextModel as complete.
+Unloaded SiglipVisionModel as complete.
+Unloaded AutoencoderKLHunyuanVideo as complete.
+Unloaded DynamicSwap_HunyuanVideoTransformer3DModelPacked as complete.
+Loaded CLIPTextModel to cuda:0 as complete.
+Unloaded CLIPTextModel as complete.
+Loaded AutoencoderKLHunyuanVideo to cuda:0 as complete.
+Unloaded AutoencoderKLHunyuanVideo as complete.
+Loaded SiglipVisionModel to cuda:0 as complete.
+Processing section 1/2 with prompt: An ornate, antique world globe on a wooden stand, reminiscent of the Victorian era, appears next to the sofa.
+Unloaded SiglipVisionModel as complete.
+Loaded CLIPTextModel to cuda:0 as complete.
+Unloaded CLIPTextModel as complete.
+Moving DynamicSwap_HunyuanVideoTransformer3DModelPacked to cuda:0 with preserved memory: 6.0 GB
+history latent shape:  torch.Size([1, 16, 20, 64, 96])
+  0%|          | 0/25 [00:00<?, ?it/s]clean_latents torch.Size([1, 3072, 3072])
+
+=== NAN PROBE: first full transformer call finite, output torch.float32 (1, 16, 9, 64, 96) max|x| 7.419 ===

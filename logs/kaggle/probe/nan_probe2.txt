@@ -1,0 +1,61 @@
+Currently enabled native sdp backends: ['flash', 'math', 'mem_efficient', 'cudnn']
+Xformers is not installed!
+Flash Attn is not installed!
+Sage Attn is not installed!
+args Namespace(prompt_file='/kaggle/tmp/pilot/pilot_package/outputs/dryrun_bf16/sample_240.prompt.json', output_dir='/kaggle/tmp/pilot/pilot_package/outputs/probe', data_dir='/kaggle/tmp/pilot/pilot_package/data/OmitI2V', n_prompt='', seed=31337, length=2.0, window=9, steps=25, cfg=1.0, gs=10.0, rs=0.0, gpu_mem=6.0, teacache='True', blur_img=False, control_scale=1.0)
+Free VRAM: 14.45977783203125 GB, High-VRAM Mode: False
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards: 100%|██████████| 4/4 [00:00<00:00, 1455.34it/s]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.50it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.36it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  3.41it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.93it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.72it/s]
+Pilot: transformer dtype torch.float16
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files: 100%|██████████| 3/3 [00:00<00:00, 1296.67it/s]
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:40<01:20, 40.32s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [01:20<00:40, 40.52s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:44<00:00, 32.80s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:44<00:00, 34.87s/it]
+NAN PROBE installed on 1406 modules
+Total latent sections: 2, Total frames: 69
+Unloaded DynamicSwap_LlamaModel as complete.
+Unloaded CLIPTextModel as complete.
+Unloaded SiglipVisionModel as complete.
+Unloaded AutoencoderKLHunyuanVideo as complete.
+Unloaded DynamicSwap_HunyuanVideoTransformer3DModelPacked as complete.
+Loaded CLIPTextModel to cuda:0 as complete.
+Unloaded CLIPTextModel as complete.
+Loaded AutoencoderKLHunyuanVideo to cuda:0 as complete.
+Unloaded AutoencoderKLHunyuanVideo as complete.
+Loaded SiglipVisionModel to cuda:0 as complete.
+Processing section 1/2 with prompt: An ornate, antique world globe on a wooden stand, reminiscent of the Victorian era, appears next to the sofa.
+Unloaded SiglipVisionModel as complete.
+Loaded CLIPTextModel to cuda:0 as complete.
+Unloaded CLIPTextModel as complete.
+Moving DynamicSwap_HunyuanVideoTransformer3DModelPacked to cuda:0 with preserved memory: 6.0 GB
+history latent shape:  torch.Size([1, 16, 20, 64, 96])
+  0%|          | 0/25 [00:00<?, ?it/s]clean_latents torch.Size([1, 3072, 3072])
+
+=== NAN PROBE: first non-finite module output ===
+module : transformer_blocks.7 DynamicSwap_HunyuanVideoTransformerBlock
+output : torch.float32 (1, 17664, 3072) nan 0 inf 20 of 54263808
+inputs : [((1, 17664, 3072), 'torch.float32', 'finite', 29763.0), ((1, 754, 3072), 'torch.float32', 'finite', 51302.8), ((1, 3072), 'torch.float16', 'finite', 22.6), 'tuple', ((1, 17664, 256), 'torch.float32', 'finite', 1.0)]
+params : []
+--- previous 25 module outputs (name, class, dtype, max|x|) ---
+   ('transformer_blocks.7.attn.to_v', 'DynamicSwap_Linear', 'torch.float16', 36.1)
+   ('transformer_blocks.7.attn.norm_q', 'DynamicSwap_RMSNorm', 'torch.float16', 10.2)
+   ('transformer_blocks.7.attn.norm_k', 'DynamicSwap_RMSNorm', 'torch.float16', 10.8)
+   ('transformer_blocks.7.attn.add_q_proj', 'DynamicSwap_Linear', 'torch.float16', 58.3)
+   ('transformer_blocks.7.attn.add_k_proj', 'DynamicSwap_Linear', 'torch.float16', 365.8)
+   ('transformer_blocks.7.attn.add_v_proj', 'DynamicSwap_Linear', 'torch.float16', 120.0)
+   ('transformer_blocks.7.attn.norm_added_q', 'DynamicSwap_RMSNorm', 'torch.float16', 8.2)
+   ('transformer_blocks.7.attn.norm_added_k', 'DynamicSwap_RMSNorm', 'torch.float16', 16.5)
+   ('transformer_blocks.7.attn.to_out.0', 'DynamicSwap_Linear', 'torch.float16', 208.1)
+   ('transformer_blocks.7.attn.to_out.1', 'DynamicSwap_Dropout', 'torch.float16', 208.1)
+   ('transformer_blocks.7.attn.to_add_out', 'DynamicSwap_Linear', 'torch.float16', 43.8)
+   ('transformer_blocks.7.attn', 'DynamicSwap_Attention', 'torch.float16', 208.1)
+   ('transformer_blocks.7.norm2', 'DynamicSwap_LayerNorm', 'torch.float32', 55.0)
+   ('transformer_blocks.7.norm2_context', 'DynamicSwap_LayerNorm', 'torch.float32', 52.6)
+   ('transformer_blocks.7.ff.net.0.proj', 'DynamicSwap_Linear', 'torch.float16', 92.8)
+   ('transformer_blocks.7.ff.net.0', 'DynamicSwap_GELU', 'torch.float16', 92.8)
+   ('transformer_blocks.7.ff.net.1', 'DynamicSwap_Dropout', 'torch.float16', 92.8)
+   ('transformer_blocks.7.ff.net.2', 'DynamicSwap_Linear', 'torch.float16', 1942.0)
+   ('transformer_blocks.7.ff', 'DynamicSwap_FeedForward', 'torch.float16', 1942.0)
+   ('transformer_blocks.7.ff_context.net.0.proj', 'DynamicSwap_Linear', 'torch.float16', 23.9)
+   ('transformer_blocks.7.ff_context.net.0', 'DynamicSwap_GELU', 'torch.float16', 15.9)
+   ('transformer_blocks.7.ff_context.net.1', 'DynamicSwap_Dropout', 'torch.float16', 15.9)
+   ('transformer_blocks.7.ff_context.net.2', 'DynamicSwap_Linear', 'torch.float16', 56.0)
+   ('transformer_blocks.7.ff_context', 'DynamicSwap_FeedForward', 'torch.float16', 56.0)

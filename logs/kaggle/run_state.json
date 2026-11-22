@@ -1,0 +1,8 @@
+{
+ "gpu_mem": "6",
+ "dryrun": {
+  "length": 2.0,
+  "gpu_mem": "6",
+  "wall_seconds": 8357.74
+ }
+}

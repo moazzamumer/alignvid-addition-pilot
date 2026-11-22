@@ -1,0 +1,89 @@
+[21:06:53] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[21:06:53] --- stage env ---
+[21:07:05] env check 2026-11-21T21:06:53 host=kaggle
+[21:07:05] platform: Linux-6.18.55+-x86_64-with-glibc2.39
+[21:07:05] RAM: 31.35 GB
+[21:07:05] free disk: 2507.0 GB
+[21:07:05] GPU: {"nvidia_smi": [{"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}, {"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}], "torch_cuda": {"available": true, "version": "13.0", "devices": ["Tesla T4", "Tesla T4"], "total_mem_gb": [14.56, 14.56]}}
+[21:07:05] versions: {"python": "3.13.16", "torch": "2.11.0+cu130", "torchvision": "0.26.0+cu130", "diffusers": "0.42.0", "transformers": "5.20.2", "accelerate": "1.15.0", "cv2": "4.14.0", "numpy": "2.1.3", "PIL": "13.0.0", "imageio": "2.38.1", "safetensors": "0.8.0", "huggingface_hub": "1.33.0", "psutil": "5.9.5"}
+[21:07:05] gpu_test: {"bf16_matmul": {"ok": true, "seconds": 0.2023}, "arch_list": ["sm_75", "sm_80", "sm_86", "sm_90", "sm_100", "sm_120"], "error": null, "capability": "sm_75", "sdpa_bf16": true}
+[21:07:05] alignvid_commit: 9f3e48d76e19fa44e7ca93f0466ca92fb24775c2
+[21:07:05] all stages finished
+[21:07:39] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[21:07:39] --- stage env ---
+[21:07:46] env check 2026-11-21T21:07:39 host=kaggle
+[21:07:46] platform: Linux-6.18.55+-x86_64-with-glibc2.39
+[21:07:46] RAM: 31.35 GB
+[21:07:46] free disk: 2507.0 GB
+[21:07:46] GPU: {"nvidia_smi": [{"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}, {"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}], "torch_cuda": {"available": true, "version": "12.8", "devices": ["Tesla T4", "Tesla T4"], "total_mem_gb": [14.56, 14.56]}}
+[21:07:46] versions: {"python": "3.11.18", "torch": "2.11.0+cu128", "torchvision": "0.26.0+cu128", "diffusers": "0.33.1", "transformers": "4.46.2", "accelerate": "1.6.0", "cv2": "4.10.0", "numpy": "1.26.2", "PIL": "11.1.0", "imageio": "2.38.2", "safetensors": "0.8.0", "huggingface_hub": "0.30.2", "psutil": "7.2.2"}
+[21:07:46] gpu_test: {"bf16_matmul": {"ok": true, "seconds": 0.0815}, "arch_list": ["sm_75", "sm_80", "sm_86", "sm_90", "sm_100", "sm_120"], "error": null, "capability": "sm_75", "sdpa_bf16": true}
+[21:07:46] alignvid_commit: 9f3e48d76e19fa44e7ca93f0466ca92fb24775c2
+[21:07:46] all stages finished
+[21:08:45] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[21:08:45] --- stage patch ---
+[21:08:45] patch parallel_mgr.py: applied=True already=False 
+[21:08:45] all stages finished
+[21:08:46] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[21:08:46] --- stage weights ---
+[21:08:46] weights: lllyasviel/FramePack_F1_I2V_HY_20250503 ...
+[21:10:42] weights: lllyasviel/FramePack_F1_I2V_HY_20250503 ok, 23.98 GB, 116.3 s
+[21:10:42] weights: hunyuanvideo-community/HunyuanVideo ...
+[21:12:00] weights: hunyuanvideo-community/HunyuanVideo ok, 15.14 GB, 78.2 s
+[21:12:00] weights: lllyasviel/flux_redux_bfl ...
+[21:12:32] weights: lllyasviel/flux_redux_bfl ok, 0.8 GB, 31.3 s
+[21:12:32] all stages finished
+[21:15:46] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[21:15:46] --- stage dryrun ---
+[21:15:46] vanilla/sample_240: start length=2.0 gpu_mem=6 control_scale=1.0
+[21:15:59] vanilla/sample_240: FAILED exit 1 after 9.94 s; tail:   File "/kaggle/tmp/pilot/pilot_package/external/AlignVid/models/FramePack/diffusers_helper/models/hunyuan_video_packed.py", line 9, in <module> |     import matplotlib.pyplot as plt | ModuleNotFoundError: No module named 'matplotlib'
+[21:15:59] vanilla/sample_240: start length=1.0 gpu_mem=6 control_scale=1.0
+[21:16:04] vanilla/sample_240: FAILED exit 1 after 5.05 s; tail:   File "/kaggle/tmp/pilot/pilot_package/external/AlignVid/models/FramePack/diffusers_helper/models/hunyuan_video_packed.py", line 9, in <module> |     import matplotlib.pyplot as plt | ModuleNotFoundError: No module named 'matplotlib'
+[21:16:04] dryrun FAILED at every rung; stopping. Send the logs folder back.
+[21:16:04] packed results_kaggle_20261121_2116.zip (0.0 MB). Upload this file.
+[21:16:04] stopped at stage dryrun
+[21:19:10] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[21:19:10] --- stage dryrun ---
+[21:19:10] vanilla/sample_240: start length=2.0 gpu_mem=6 control_scale=1.0
+[21:19:19] vanilla/sample_240: FAILED exit 1 after 5.35 s; tail:   File "/kaggle/tmp/venv/lib/python3.11/site-packages/matplotlib/__init__.py", line 784, in __setitem__ |     raise ValueError(f"Key {key}: {ve}") from None | ValueError: Key backend: 'module://matplotlib_inline.backend_inline' is not a valid value for backend; supported values are ['gtk3agg', 'gtk3cairo', 'gtk4agg', 'gtk4cairo', 'macosx', 'nbagg', 'notebook', 'qtagg', 'qtcairo', 'qt5agg', 'qt5cairo', 'tkagg', 'tkcairo', 'webagg', 'wx', 'wxagg', 'wxcairo', 'agg', 'cairo', 'pdf', 'pgf', 'ps', 'svg', 'template']
+[21:19:19] vanilla/sample_240: start length=1.0 gpu_mem=6 control_scale=1.0
+[21:19:24] vanilla/sample_240: FAILED exit 1 after 5.12 s; tail:   File "/kaggle/tmp/venv/lib/python3.11/site-packages/matplotlib/__init__.py", line 784, in __setitem__ |     raise ValueError(f"Key {key}: {ve}") from None | ValueError: Key backend: 'module://matplotlib_inline.backend_inline' is not a valid value for backend; supported values are ['gtk3agg', 'gtk3cairo', 'gtk4agg', 'gtk4cairo', 'macosx', 'nbagg', 'notebook', 'qtagg', 'qtcairo', 'qt5agg', 'qt5cairo', 'tkagg', 'tkcairo', 'webagg', 'wx', 'wxagg', 'wxcairo', 'agg', 'cairo', 'pdf', 'pgf', 'ps', 'svg', 'template']
+[21:19:24] dryrun FAILED at every rung; stopping. Send the logs folder back.
+[21:19:24] packed results_kaggle_20261121_2119.zip (0.0 MB). Upload this file.
+[21:19:24] stopped at stage dryrun
+[21:21:20] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[21:21:20] --- stage dryrun ---
+[21:21:20] vanilla/sample_240: start length=2.0 gpu_mem=6 control_scale=1.0
+[21:26:37] vanilla/sample_240: FAILED exit 1 after 313.69 s; tail: [rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | [rank0]: RuntimeError: Expected all tensors to be on the same device, but got index is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA__index_select) | [rank0]:[W1121 21:26:33.620368679 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[21:26:37] vanilla/sample_240: start length=1.0 gpu_mem=6 control_scale=1.0
+[21:26:52] vanilla/sample_240: FAILED exit 1 after 14.76 s; tail: [rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | [rank0]: RuntimeError: Expected all tensors to be on the same device, but got index is on cpu, different from other tensors on cuda:0 (when checking argument in method wrapper_CUDA__index_select) | [rank0]:[W1121 21:26:51.241699257 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[21:26:52] dryrun FAILED at every rung; stopping. Send the logs folder back.
+[21:26:52] packed results_kaggle_20261121_2126.zip (0.0 MB). Upload this file.
+[21:26:52] stopped at stage dryrun
+[21:31:31] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[21:31:31] --- stage dryrun ---
+[21:31:31] vanilla/sample_240: start length=2.0 gpu_mem=6 control_scale=1.0
+[21:33:25] vanilla/sample_240: FAILED exit 1 after 110.48 s; tail: [rank0]:         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | [rank0]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 30.33 GiB. GPU 0 has a total capacity of 14.56 GiB of which 3.31 GiB is free. Including non-PyTorch memory, this process has 11.25 GiB memory in use. Of the allocated memory 10.29 GiB is allocated by PyTorch, and 394.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf) | [rank0]:[W1121 21:33:19.245171512 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[21:33:25] vanilla/sample_240: start length=1.0 gpu_mem=6 control_scale=1.0
+[21:34:49] vanilla/sample_240: FAILED exit 1 after 83.56 s; tail: [rank0]:         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | [rank0]: torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 30.33 GiB. GPU 0 has a total capacity of 14.56 GiB of which 3.31 GiB is free. Including non-PyTorch memory, this process has 11.25 GiB memory in use. Of the allocated memory 10.29 GiB is allocated by PyTorch, and 394.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf) | [rank0]:[W1121 21:34:45.121368230 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[21:34:49] dryrun FAILED at every rung; stopping. Send the logs folder back.
+[21:34:49] packed results_kaggle_20261121_2134.zip (0.0 MB). Upload this file.
+[21:34:49] stopped at stage dryrun
+[21:43:02] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[21:43:02] --- stage dryrun ---
+[21:43:02] vanilla/sample_240: start length=2.0 gpu_mem=6 control_scale=1.0
+[00:20:51] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[00:20:51] --- stage dryrun ---
+[00:20:51] vanilla/sample_240: start length=2.0 gpu_mem=6 control_scale=1.0
+[02:40:17] vanilla/sample_240: done in 8357.74 s, GPU peak 14119.0 MB, RSS 24.857 GB
+[02:40:17] all stages finished
+[02:53:19] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[02:53:19] --- stage dryrun ---
+[02:53:19] vanilla/sample_240: start length=2.0 gpu_mem=6 control_scale=1.0
+[03:03:14] vanilla/sample_240: done in 587.4 s, GPU peak 12937.0 MB, RSS 28.376 GB
+[03:03:14] all stages finished
+[04:08:41] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[04:08:41] --- stage dryrun ---
+[04:08:41] vanilla/sample_240: start length=2.0 gpu_mem=6 control_scale=1.0
+[04:34:36] vanilla/sample_240: done in 1546.48 s, GPU peak 13037.0 MB, RSS 28.503 GB
+[04:34:36] all stages finished

@@ -1,0 +1,8 @@
+env check 2026-11-21T21:07:39 host=kaggle
+platform: Linux-6.18.55+-x86_64-with-glibc2.39
+RAM: 31.35 GB
+free disk: 2507.0 GB
+GPU: {"nvidia_smi": [{"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}, {"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}], "torch_cuda": {"available": true, "version": "12.8", "devices": ["Tesla T4", "Tesla T4"], "total_mem_gb": [14.56, 14.56]}}
+versions: {"python": "3.11.18", "torch": "2.11.0+cu128", "torchvision": "0.26.0+cu128", "diffusers": "0.33.1", "transformers": "4.46.2", "accelerate": "1.6.0", "cv2": "4.10.0", "numpy": "1.26.2", "PIL": "11.1.0", "imageio": "2.38.2", "safetensors": "0.8.0", "huggingface_hub": "0.30.2", "psutil": "7.2.2"}
+gpu_test: {"bf16_matmul": {"ok": true, "seconds": 0.0815}, "arch_list": ["sm_75", "sm_80", "sm_86", "sm_90", "sm_100", "sm_120"], "error": null, "capability": "sm_75", "sdpa_bf16": true}
+alignvid_commit: 9f3e48d76e19fa44e7ca93f0466ca92fb24775c2

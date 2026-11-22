@@ -1,0 +1,24 @@
+{
+ "hf_home": "/kaggle/tmp/pilot/pilot_package/external/AlignVid/models/FramePack/hf_download",
+ "repos": [
+  {
+   "repo": "lllyasviel/FramePack_F1_I2V_HY_20250503",
+   "ok": true,
+   "seconds": 116.3,
+   "gb_on_disk": 23.98
+  },
+  {
+   "repo": "hunyuanvideo-community/HunyuanVideo",
+   "ok": true,
+   "seconds": 78.2,
+   "gb_on_disk": 15.14
+  },
+  {
+   "repo": "lllyasviel/flux_redux_bfl",
+   "ok": true,
+   "seconds": 31.3,
+   "gb_on_disk": 0.8
+  }
+ ],
+ "total_seconds": 225.7
+}

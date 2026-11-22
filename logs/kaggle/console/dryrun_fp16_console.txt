@@ -1,0 +1,155 @@
+[02:53:19] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T01:52:17', 'repo_commit': 'b6ff193', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[02:53:19] --- stage dryrun ---
+[02:53:19] vanilla/sample_240: start length=2.0 gpu_mem=6 control_scale=1.0
+Currently enabled native sdp backends: ['flash', 'math', 'mem_efficient', 'cudnn']
+Xformers is not installed!
+Flash Attn is not installed!
+Sage Attn is not installed!
+args Namespace(prompt_file='/kaggle/tmp/pilot/pilot_package/outputs/dryrun/sample_240.prompt.json', output_dir='/kaggle/tmp/pilot/pilot_package/outputs/dryrun', data_dir='/kaggle/tmp/pilot/pilot_package/data/OmitI2V', n_prompt='', seed=31337, length=2.0, window=9, steps=25, cfg=1.0, gs=10.0, rs=0.0, gpu_mem=6.0, teacache='True', blur_img=False, control_scale=1.0)
+Free VRAM: 14.45977783203125 GB, High-VRAM Mode: False
+
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Downloading shards: 100%|██████████| 4/4 [00:00<00:00, 2226.57it/s]
+
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.66it/s]
+Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.56it/s]
+Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  3.49it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  4.30it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.99it/s]
+Pilot: transformer dtype torch.float16
+
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]
+Fetching 3 files: 100%|██████████| 3/3 [00:00<00:00, 1102.51it/s]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:38<01:17, 38.88s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [01:14<00:37, 37.23s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [01:38<00:00, 30.98s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [01:38<00:00, 32.83s/it]
+Total latent sections: 2, Total frames: 69
+Unloaded DynamicSwap_LlamaModel as complete.
+Unloaded CLIPTextModel as complete.
+Unloaded SiglipVisionModel as complete.
+Unloaded AutoencoderKLHunyuanVideo as complete.
+Unloaded DynamicSwap_HunyuanVideoTransformer3DModelPacked as complete.
+Loaded CLIPTextModel to cuda:0 as complete.
+Unloaded CLIPTextModel as complete.
+Loaded AutoencoderKLHunyuanVideo to cuda:0 as complete.
+Unloaded AutoencoderKLHunyuanVideo as complete.
+Loaded SiglipVisionModel to cuda:0 as complete.
+Processing section 1/2 with prompt: An ornate, antique world globe on a wooden stand, reminiscent of the Victorian era, appears next to the sofa.
+Unloaded SiglipVisionModel as complete.
+Loaded CLIPTextModel to cuda:0 as complete.
+Unloaded CLIPTextModel as complete.
+Moving DynamicSwap_HunyuanVideoTransformer3DModelPacked to cuda:0 with preserved memory: 6.0 GB
+history latent shape:  torch.Size([1, 16, 20, 64, 96])
+
+  0%|          | 0/25 [00:00<?, ?it/s]/kaggle/tmp/pilot/pilot_package/external/AlignVid/models/FramePack/inference_f1_json.py:562: RuntimeWarning: invalid value encountered in cast
+  preview = (preview * 255.0).detach().cpu().numpy().clip(0, 255).astype(np.uint8)
+
+  4%|▍         | 1/25 [00:36<14:33, 36.41s/it]
+  8%|▊         | 2/25 [00:36<05:46, 15.06s/it]
+ 12%|█▏        | 3/25 [00:36<03:03,  8.32s/it]
+ 16%|█▌        | 4/25 [00:36<01:46,  5.08s/it]
+ 24%|██▍       | 6/25 [00:37<00:46,  2.44s/it]
+ 32%|███▏      | 8/25 [00:37<00:24,  1.43s/it]
+ 40%|████      | 10/25 [00:37<00:13,  1.09it/s]
+ 48%|████▊     | 12/25 [00:37<00:08,  1.60it/s]
+ 56%|█████▌    | 14/25 [00:37<00:04,  2.24it/s]
+ 64%|██████▍   | 16/25 [00:38<00:02,  3.01it/s]
+ 72%|███████▏  | 18/25 [00:38<00:01,  3.89it/s]
+ 80%|████████  | 20/25 [00:38<00:01,  4.87it/s]
+ 88%|████████▊ | 22/25 [00:38<00:00,  5.88it/s]
+ 96%|█████████▌| 24/25 [00:38<00:00,  6.84it/s]
+ 96%|█████████▌| 24/25 [00:50<00:00,  6.84it/s]
+100%|██████████| 25/25 [01:14<00:00,  6.51s/it]
+100%|██████████| 25/25 [01:14<00:00,  2.98s/it]
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+Offloading DynamicSwap_HunyuanVideoTransformer3DModelPacked from cuda:0 to preserve memory: 8 GB
+Loaded AutoencoderKLHunyuanVideo to cuda:0 as complete.
+Processing section 2/2 with prompt: An ornate, antique world globe on a wooden stand, reminiscent of the Victorian era, appears next to the sofa.
+Unloaded AutoencoderKLHunyuanVideo as complete.
+Loaded CLIPTextModel to cuda:0 as complete.
+Unloaded CLIPTextModel as complete.
+Moving DynamicSwap_HunyuanVideoTransformer3DModelPacked to cuda:0 with preserved memory: 6.0 GB
+history latent shape:  torch.Size([1, 16, 29, 64, 96])
+
+  0%|          | 0/25 [00:00<?, ?it/s]
+  4%|▍         | 1/25 [00:38<15:34, 38.95s/it]
+ 12%|█▏        | 3/25 [00:39<03:43, 10.17s/it]
+ 20%|██        | 5/25 [00:39<01:39,  4.99s/it]
+ 28%|██▊       | 7/25 [00:39<00:52,  2.92s/it]
+ 36%|███▌      | 9/25 [00:39<00:29,  1.85s/it]
+ 44%|████▍     | 11/25 [00:39<00:17,  1.24s/it]
+ 52%|█████▏    | 13/25 [00:40<00:10,  1.17it/s]
+ 60%|██████    | 15/25 [00:40<00:06,  1.64it/s]
+ 68%|██████▊   | 17/25 [00:40<00:03,  2.24it/s]
+ 76%|███████▌  | 19/25 [00:40<00:02,  2.97it/s]
+ 84%|████████▍ | 21/25 [00:40<00:01,  3.83it/s]
+ 92%|█████████▏| 23/25 [00:40<00:00,  4.75it/s]
+ 92%|█████████▏| 23/25 [00:55<00:00,  4.75it/s]
+100%|██████████| 25/25 [01:18<00:00,  5.88s/it]
+100%|██████████| 25/25 [01:18<00:00,  3.15s/it]
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+clean_latents torch.Size([1, 3072, 3072])
+Offloading DynamicSwap_HunyuanVideoTransformer3DModelPacked from cuda:0 to preserve memory: 8 GB
+Loaded AutoencoderKLHunyuanVideo to cuda:0 as complete.
+Saved video: /kaggle/tmp/pilot/pilot_package/outputs/dryrun/sample_240.mp4
+Verified file exists: /kaggle/tmp/pilot/pilot_package/outputs/dryrun/sample_240.mp4
+use time 463.8200840950012
+[rank0]:[W1122 03:03:00.043939842 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[sysinfo] /kaggle/tmp/pilot/pilot_package/logs/vanilla_sample_240__len2.0_gm6.json: exit 0, 587.4 s, child peak RSS 28.376 GB, GPU peak 12937.0 MB
+[03:03:14] vanilla/sample_240: done in 587.4 s, GPU peak 12937.0 MB, RSS 28.376 GB
+[03:03:14] all stages finished
