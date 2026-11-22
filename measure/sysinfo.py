@@ -169,14 +169,26 @@ class Run:
         return False
 
 
-def run_command(cmd, log_path, cwd=None, tail=60, echo=True, **meta):
-    """Run cmd as a child, stream its output, record wall time, exit code, child peak RSS, nvidia-smi peak."""
+def run_command(cmd, log_path, cwd=None, tail=60, echo=True, timeout=None, **meta):
+    """Run cmd as a child, stream its output, record wall time, exit code, child peak RSS, nvidia-smi peak.
+    timeout (seconds): kill the child when exceeded; the record then has timed_out=True and ok=False."""
     poller = GpuPoller(); poller.start()
     t0 = time.time(); start = datetime.datetime.now().isoformat(timespec="seconds")
     lines = []
     p = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1,
                          encoding="utf-8", errors="replace")
     rss = RssPoller(p.pid); rss.start()
+    timed_out = {"v": False}
+
+    def _kill():
+        timed_out["v"] = True
+        try:
+            p.kill()
+        except Exception:
+            pass
+    watchdog = threading.Timer(timeout, _kill) if timeout else None
+    if watchdog:
+        watchdog.daemon = True; watchdog.start()
     for ln in p.stdout:
         if echo:
             sys.stdout.write(ln); sys.stdout.flush()
@@ -184,6 +196,10 @@ def run_command(cmd, log_path, cwd=None, tail=60, echo=True, **meta):
         if len(lines) > 5000:
             lines = lines[-tail:]
     p.wait(); poller.stop(); rss.stop()
+    if watchdog:
+        watchdog.cancel()
+    if timed_out["v"]:
+        lines.append(f"[sysinfo] killed after timeout {round(timeout, 1)} s")
     if rss.peak_gb is not None:
         child_peak = round(rss.peak_gb, 3); child_peak_src = "psutil poll 1 s"
     elif resource is not None:
@@ -191,7 +207,8 @@ def run_command(cmd, log_path, cwd=None, tail=60, echo=True, **meta):
     else:
         child_peak = None; child_peak_src = None
     rec = {**meta, "command": cmd, "cwd": cwd, "start": start, "end": datetime.datetime.now().isoformat(timespec="seconds"),
-           "wall_seconds": round(time.time() - t0, 2), "exit_code": p.returncode, "ok": p.returncode == 0,
+           "wall_seconds": round(time.time() - t0, 2), "exit_code": p.returncode, "ok": p.returncode == 0 and not timed_out["v"],
+           "timed_out": timed_out["v"], "timeout_seconds": timeout,
            "child_peak_rss_gb": child_peak, "child_peak_rss_source": child_peak_src,
            "peak_gpu_used_mb_nvidia_smi": poller.peak_mb, "output_tail": lines[-tail:], "sysinfo": sysinfo()}
     os.makedirs(os.path.dirname(os.path.abspath(log_path)), exist_ok=True)
