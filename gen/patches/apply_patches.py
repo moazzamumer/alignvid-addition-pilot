@@ -47,6 +47,37 @@ PATCHES = [
           "                device=gpu,\n                dtype=transformer.dtype,\n                image_embeddings=image_encoder_last_hidden_state,\n"),
      ],
      "why": "Tesla T4 (sm_75) emulates bf16: the bf16 dry run took 8358 s for a 2 s clip (C3, 2026-11-22). fp16 uses the T4 tensor cores. Off unless PILOT_TRANSFORMER_DTYPE=fp16; the value used is recorded in each attempt log."},
+    {"id": "fp32-residual", "file": f"{FP}/diffusers_helper/models/hunyuan_video_packed.py",
+     "edits": [
+         ("        # 1. Input normalization\n        norm_hidden_states, gate_msa, shift_mlp, scale_mlp, gate_mlp = self.norm1(hidden_states, emb=temb)\n        norm_encoder_hidden_states, c_gate_msa, c_shift_mlp, c_scale_mlp, c_gate_mlp = self.norm1_context(\n            encoder_hidden_states, emb=temb)\n",
+          "        # Pilot patch (fp32-residual): in fp16 the residual stream overflows (|x| > 29760 entering block 7 on\n"
+          "        # sample_240, fp16 max 65504). Keep hidden/encoder states in fp32 between blocks; attention and MLPs\n"
+          "        # still run in the compute dtype. No-op in bf16.\n"
+          "        _c = temb.dtype\n"
+          "        if _c == torch.float16:\n"
+          "            hidden_states, encoder_hidden_states = hidden_states.float(), encoder_hidden_states.float()\n"
+          "        # 1. Input normalization\n        norm_hidden_states, gate_msa, shift_mlp, scale_mlp, gate_mlp = self.norm1(hidden_states, emb=temb)\n        norm_encoder_hidden_states, c_gate_msa, c_shift_mlp, c_scale_mlp, c_gate_mlp = self.norm1_context(\n            encoder_hidden_states, emb=temb)\n"
+          "        norm_hidden_states, norm_encoder_hidden_states = norm_hidden_states.to(_c), norm_encoder_hidden_states.to(_c)\n"),
+         ("        norm_hidden_states = norm_hidden_states * (1 + scale_mlp) + shift_mlp\n        norm_encoder_hidden_states = norm_encoder_hidden_states * (1 + c_scale_mlp) + c_shift_mlp\n",
+          "        norm_hidden_states = norm_hidden_states * (1 + scale_mlp) + shift_mlp\n        norm_encoder_hidden_states = norm_encoder_hidden_states * (1 + c_scale_mlp) + c_shift_mlp\n"
+          "        norm_hidden_states, norm_encoder_hidden_states = norm_hidden_states.to(_c), norm_encoder_hidden_states.to(_c)\n"),
+         ("        text_seq_length = encoder_hidden_states.shape[1]\n        hidden_states = torch.cat([hidden_states, encoder_hidden_states], dim=1)\n\n        residual = hidden_states\n\n        # 1. Input normalization\n        norm_hidden_states, gate = self.norm(hidden_states, emb=temb)\n        mlp_hidden_states = self.act_mlp(self.proj_mlp(norm_hidden_states))\n",
+          "        text_seq_length = encoder_hidden_states.shape[1]\n        hidden_states = torch.cat([hidden_states, encoder_hidden_states], dim=1)\n"
+          "        # Pilot patch (fp32-residual): see HunyuanVideoTransformerBlock.forward.\n"
+          "        _c = temb.dtype\n"
+          "        if _c == torch.float16:\n"
+          "            hidden_states = hidden_states.float()\n"
+          "\n        residual = hidden_states\n\n        # 1. Input normalization\n        norm_hidden_states, gate = self.norm(hidden_states, emb=temb)\n"
+          "        norm_hidden_states = norm_hidden_states.to(_c)\n"
+          "        mlp_hidden_states = self.act_mlp(self.proj_mlp(norm_hidden_states))\n"),
+         ("        hidden_states = self.gradient_checkpointing_method(self.norm_out, hidden_states, temb)\n",
+          "        if hidden_states.dtype == torch.float32 and temb.dtype == torch.float16:\n"
+          "            # Pilot patch (fp32-residual): final AdaLayerNorm in fp32 too (same pattern as proj_out below).\n"
+          "            self.norm_out.to(dtype=torch.float32)\n"
+          "            temb = temb.float()\n"
+          "        hidden_states = self.gradient_checkpointing_method(self.norm_out, hidden_states, temb)\n"),
+     ],
+     "why": "fp16 dry run on the T4 gave an all-black clip: the NaN probe (gen/nan_probe.py) showed the first Inf in transformer_blocks.7's residual add, with finite sub-layer outputs (<= 1940) but a residual stream already at 29760 (hidden) / 51328 (text). Large residual channels are a property of this model family. Residual kept in fp32, blocks compute in fp16. Inactive in bf16."},
 ]
 
 
