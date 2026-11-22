@@ -76,8 +76,16 @@ PATCHES = [
           "            self.norm_out.to(dtype=torch.float32)\n"
           "            temb = temb.float()\n"
           "        hidden_states = self.gradient_checkpointing_method(self.norm_out, hidden_states, temb)\n"),
+         # gated products in the residual dtype: in fp16, ff_output (up to ~2e3) x gate (can exceed 30) overflowed
+         # inside block 7 even with the fp32 residual (second NaN-probe run, 2026-11-22).
+         ("        hidden_states = hidden_states + attn_output * gate_msa\n        encoder_hidden_states = encoder_hidden_states + context_attn_output * c_gate_msa\n",
+          "        hidden_states = hidden_states + attn_output.to(hidden_states.dtype) * gate_msa\n        encoder_hidden_states = encoder_hidden_states + context_attn_output.to(encoder_hidden_states.dtype) * c_gate_msa\n"),
+         ("        hidden_states = hidden_states + gate_mlp * ff_output\n        encoder_hidden_states = encoder_hidden_states + c_gate_mlp * context_ff_output\n",
+          "        hidden_states = hidden_states + gate_mlp * ff_output.to(hidden_states.dtype)\n        encoder_hidden_states = encoder_hidden_states + c_gate_mlp * context_ff_output.to(encoder_hidden_states.dtype)\n"),
+         ("        hidden_states = gate * self.proj_out(hidden_states)\n        hidden_states = hidden_states + residual\n",
+          "        hidden_states = gate * self.proj_out(hidden_states).to(residual.dtype)\n        hidden_states = hidden_states + residual\n"),
      ],
-     "why": "fp16 dry run on the T4 gave an all-black clip: the NaN probe (gen/nan_probe.py) showed the first Inf in transformer_blocks.7's residual add, with finite sub-layer outputs (<= 1940) but a residual stream already at 29760 (hidden) / 51328 (text). Large residual channels are a property of this model family. Residual kept in fp32, blocks compute in fp16. Inactive in bf16."},
+     "why": "fp16 dry run on the T4 gave an all-black clip: the NaN probe (gen/nan_probe.py) showed the first Inf in transformer_blocks.7's residual add, with finite sub-layer outputs (<= 1940) but a residual stream already at 29760 (hidden) / 51328 (text). Large residual channels are a property of this model family. Residual kept in fp32 and the gated residual updates computed in fp32; attention and MLP matmuls stay fp16. Inactive in bf16."},
 ]
 
 
