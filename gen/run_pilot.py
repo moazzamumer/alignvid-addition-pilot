@@ -171,7 +171,8 @@ def generate(arm, sid, length, gpu_mem, dry=False, out_dir=None):
     log(f"{arm}/{sid}: start length={length} gpu_mem={gpu_mem} control_scale={control}")
     log_path = os.path.join(LOGS, f"{arm}_{sid}__len{length}_gm{gpu_mem}.json")
     rec = run_command(cmd, log_path, cwd=FP_DIR, echo=not QUIET, arm=arm, id=sid, length=float(length),
-                      gpu_mem=float(gpu_mem), control_scale=float(control), fixed_flags=FIXED, seed=31337, version_file=version_info())
+                      gpu_mem=float(gpu_mem), control_scale=float(control), fixed_flags=FIXED, seed=31337,
+                      transformer_dtype=os.environ.get("PILOT_TRANSFORMER_DTYPE", "bf16"), version_file=version_info())
     rec["ok"] = rec["ok"] and os.path.exists(mp4)
     if rec["ok"]:
         side = {k: rec[k] for k in ("arm", "id", "length", "gpu_mem", "control_scale", "fixed_flags", "seed", "start", "end",

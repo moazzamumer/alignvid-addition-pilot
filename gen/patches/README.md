@@ -1,6 +1,6 @@
 # Source patches applied before generation (`gen/patches/apply_patches.py`)
 
-Applied by `gen/run_pilot.py --stage patch`; each is recorded in `logs/patches.json` with the file's sha256 before and after. No model, sampling or attention code is touched.
+Applied by `gen/run_pilot.py --stage patch`; each is recorded in `logs/patches.json` with the file's sha256 before and after. Patches 1–4 change no computed value. Patch 5 changes the transformer's compute dtype and is inactive unless `PILOT_TRANSFORMER_DTYPE=fp16` is set; the value in force is written to every attempt log.
 
 | id | file | change | why |
 |---|---|---|---|
@@ -8,3 +8,4 @@ Applied by `gen/run_pilot.py --stage patch`; each is recorded in `logs/patches.j
 | lowvram-text-encode-1 | `inference_f1_json.py`, before the first prompt encode | add `fake_diffusers_current_device(text_encoder, gpu)` and `load_model_as_complete(text_encoder_2, target_device=gpu)` inside `if not high_vram:` | The low-VRAM branch (free VRAM ≤ 60 GB) is missing the two lines upstream FramePack has here. Without them `text_encoder.device` reports CPU while the dynamically swapped embedding weight is on the GPU: `RuntimeError: Expected all tensors to be on the same device` (found at C3 on a Kaggle T4, 2026-11-22). The authors' runs used ≥ 80 GB GPUs, where this branch is skipped. |
 | lowvram-text-encode-2 | `inference_f1_json.py`, per-section prompt encode in the loop | same two lines | Same fix for the second call site. |
 | sdpa-query-chunks | `diffusers_helper/models/hunyuan_video_packed.py`, SDPA fallback in `attn_varlen_func` | run `scaled_dot_product_attention` over query chunks of 512 when the GPU is older than Ampere (`ATTN_Q_CHUNK` overrides) | The T4 has no fused bf16 attention kernel, so the math fallback allocated the full score matrix (30 GiB, OOM at C3 on Kaggle, 2026-11-22). Chunking over queries is exact: each query row's softmax is independent. Inactive on sm_80+. |
+| transformer-dtype-env | `inference_f1_json.py`, transformer load, `.to(dtype)` and the two `sample_hunyuan` calls | `torch.bfloat16` → dtype chosen by `PILOT_TRANSFORMER_DTYPE` (default bf16); prints the dtype at load | The T4 has no native bf16 arithmetic: the bf16 dry run took 8358 s for one 2 s clip (C3, 2026-11-22), which does not fit the Kaggle quota. fp16 runs on the T4 tensor cores. The other four models are fp16 upstream already and the output projection stays fp32. |

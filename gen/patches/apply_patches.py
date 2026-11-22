@@ -31,6 +31,22 @@ PATCHES = [
             "                           for i in range(0, qt.shape[2], _chunk)], dim=2)\n"
             "        return x.transpose(1, 2)\n",
      "why": "Tesla T4 (sm_75) has no flash/mem-efficient bf16 SDPA kernel; the math fallback tried to allocate 30 GiB for the score matrix (C3 OOM, 2026-11-22). Query chunking computes the same softmax(QK^T)V per query row; only the memory layout changes. Inactive on sm_80+ unless ATTN_Q_CHUNK is set."},
+    {"id": "transformer-dtype-env", "file": f"{FP}/inference_f1_json.py",
+     "edits": [
+         ("    transformer = HunyuanVideoTransformer3DModelPacked.from_pretrained(\"lllyasviel/FramePack_F1_I2V_HY_20250503\", torch_dtype=torch.bfloat16).cpu()\n",
+          "    # Pilot patch: transformer compute dtype from PILOT_TRANSFORMER_DTYPE (default bf16 = upstream; fp16 for GPUs\n"
+          "    # without native bf16). The other models are fp16 upstream already; the final projection stays fp32.\n"
+          "    _TRANSFORMER_DTYPE = torch.float16 if os.environ.get('PILOT_TRANSFORMER_DTYPE', 'bf16').lower() in ('fp16', 'float16') else torch.bfloat16\n"
+          "    print(f'Pilot: transformer dtype {_TRANSFORMER_DTYPE}')\n"
+          "    transformer = HunyuanVideoTransformer3DModelPacked.from_pretrained(\"lllyasviel/FramePack_F1_I2V_HY_20250503\", torch_dtype=_TRANSFORMER_DTYPE).cpu()\n"),
+         ("    transformer.to(dtype=torch.bfloat16)\n",
+          "    transformer.to(dtype=_TRANSFORMER_DTYPE)\n"),
+         ("                device=gpu,\n                dtype=torch.bfloat16,\n                image_embeddings=image_embeddings,\n",
+          "                device=gpu,\n                dtype=transformer.dtype,\n                image_embeddings=image_embeddings,\n"),
+         ("                device=gpu,\n                dtype=torch.bfloat16,\n                image_embeddings=image_encoder_last_hidden_state,\n",
+          "                device=gpu,\n                dtype=transformer.dtype,\n                image_embeddings=image_encoder_last_hidden_state,\n"),
+     ],
+     "why": "Tesla T4 (sm_75) emulates bf16: the bf16 dry run took 8358 s for a 2 s clip (C3, 2026-11-22). fp16 uses the T4 tensor cores. Off unless PILOT_TRANSFORMER_DTYPE=fp16; the value used is recorded in each attempt log."},
 ]
 
 
@@ -44,12 +60,21 @@ def apply(root):
         path = os.path.join(root, pt["file"])
         rec = {"id": pt["id"], "file": pt["file"], "why": pt["why"], "sha256_before": sha(path), "applied": False, "already": False}
         s = open(path, encoding="utf-8").read()
-        if pt["new"] in s:
+        edits = pt.get("edits") or [(pt["old"], pt["new"])]
+        done = missing = 0
+        for old, new in edits:
+            if new in s:
+                done += 1
+            elif old in s:
+                s = s.replace(old, new, 1); rec["applied"] = True
+            else:
+                missing += 1
+        if missing:
+            rec["error"] = f"pattern not found ({missing} of {len(edits)} edits)"
+        elif done == len(edits):
             rec["already"] = True
-        elif pt["old"] in s:
-            open(path, "w", encoding="utf-8", newline="").write(s.replace(pt["old"], pt["new"], 1)); rec["applied"] = True
-        else:
-            rec["error"] = "pattern not found"
+        if rec["applied"]:
+            open(path, "w", encoding="utf-8", newline="").write(s)
         rec["sha256_after"] = sha(path); recs.append(rec)
     os.makedirs(os.path.join(root, "logs"), exist_ok=True)
     json.dump(recs, open(os.path.join(root, "logs", "patches.json"), "w"), indent=1)
