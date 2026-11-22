@@ -41,7 +41,7 @@ def main():
         for r in pilot:
             add(os.path.join("data/OmitI2V", r["image-path"]))
         z.writestr(f"{a.rootname}/VERSION.json", json.dumps(version, indent=1))
-        z.writestr(f"{a.rootname}/README.txt", "Double-click gen\\round1.bat. Details in gen\\README_laptop.md.\n")
+        z.writestr(f"{a.rootname}/README.txt", "Run gen/run_pilot.py (usage in its docstring); on Kaggle use kaggle/pilot_kaggle.ipynb from the repository.\n")
     print(f"wrote {a.out}: {n + 2} files, {round(os.path.getsize(a.out) / 2**20, 1)} MB"); print(json.dumps(version, indent=1))
 
 
