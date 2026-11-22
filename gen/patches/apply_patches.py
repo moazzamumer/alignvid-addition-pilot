@@ -84,8 +84,41 @@ PATCHES = [
           "        hidden_states = hidden_states + gate_mlp * ff_output.to(hidden_states.dtype)\n        encoder_hidden_states = encoder_hidden_states + c_gate_mlp * context_ff_output.to(encoder_hidden_states.dtype)\n"),
          ("        hidden_states = gate * self.proj_out(hidden_states)\n        hidden_states = hidden_states + residual\n",
           "        hidden_states = gate * self.proj_out(hidden_states).to(residual.dtype)\n        hidden_states = hidden_states + residual\n"),
+         # residual-update projections with an fp32 result: in block 19 the text MLP down-projection itself produced
+         # values beyond the fp16 range from a finite input (third NaN-probe run, 2026-11-22). Tensor cores accumulate
+         # in fp32 anyway; torch.mm(out_dtype=float32) returns that accumulator (fp32 matmul fallback where absent).
+         ("class HunyuanVideoSingleTransformerBlock(nn.Module):\n",
+          "def _pilot_linear_fp32_out(lin, x):\n"
+          "    # Pilot patch (fp32-residual): nn.Linear with fp16 operands and an fp32 result.\n"
+          "    if x.dtype != torch.float16:\n"
+          "        return lin(x)\n"
+          "    w, b = lin.weight, lin.bias\n"
+          "    x2 = x.reshape(-1, x.shape[-1])\n"
+          "    try:\n"
+          "        y = torch.mm(x2, w.t(), out_dtype=torch.float32)\n"
+          "    except (TypeError, RuntimeError):\n"
+          "        y = torch.mm(x2.float(), w.t().float())\n"
+          "    if b is not None:\n"
+          "        y = y + b.float()\n"
+          "    return y.reshape(*x.shape[:-1], y.shape[-1])\n"
+          "\n"
+          "\n"
+          "def _pilot_ff_fp32_out(ff, x):\n"
+          "    # Pilot patch (fp32-residual): diffusers FeedForward whose last Linear returns fp32.\n"
+          "    if x.dtype != torch.float16:\n"
+          "        return ff(x)\n"
+          "    for m in ff.net[:-1]:\n"
+          "        x = m(x)\n"
+          "    return _pilot_linear_fp32_out(ff.net[-1], x)\n"
+          "\n"
+          "\n"
+          "class HunyuanVideoSingleTransformerBlock(nn.Module):\n"),
+         ("        ff_output = self.ff(norm_hidden_states)\n        context_ff_output = self.ff_context(norm_encoder_hidden_states)\n",
+          "        ff_output = _pilot_ff_fp32_out(self.ff, norm_hidden_states)\n        context_ff_output = _pilot_ff_fp32_out(self.ff_context, norm_encoder_hidden_states)\n"),
+         ("        hidden_states = gate * self.proj_out(hidden_states).to(residual.dtype)\n",
+          "        hidden_states = gate * _pilot_linear_fp32_out(self.proj_out, hidden_states)\n"),
      ],
-     "why": "fp16 dry run on the T4 gave an all-black clip: the NaN probe (gen/nan_probe.py) showed the first Inf in transformer_blocks.7's residual add, with finite sub-layer outputs (<= 1940) but a residual stream already at 29760 (hidden) / 51328 (text). Large residual channels are a property of this model family. Residual kept in fp32 and the gated residual updates computed in fp32; attention and MLP matmuls stay fp16. Inactive in bf16."},
+     "why": "fp16 dry run on the T4 gave an all-black clip: the NaN probe (gen/nan_probe.py) showed the first Inf in transformer_blocks.7's residual add, with finite sub-layer outputs (<= 1940) but a residual stream already at 29760 (hidden) / 51328 (text). Large residual channels are a property of this model family. Residual kept in fp32, the gated residual updates computed in fp32, and the three projections that write into the residual (MLP down-projections, single-block proj_out) return fp32 from fp16 operands; other matmuls stay fp16. Inactive in bf16."},
 ]
 
 
