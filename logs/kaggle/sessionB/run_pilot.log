@@ -1,0 +1,105 @@
+[04:52:22] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T09:43:36', 'repo_commit': '362af89', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[04:52:22] --- stage env ---
+[04:52:32] env check 2026-11-22T04:52:22 host=kaggle
+[04:52:32] platform: Linux-6.18.55+-x86_64-with-glibc2.39
+[04:52:32] RAM: 31.35 GB
+[04:52:32] free disk: 2507.1 GB
+[04:52:32] GPU: {"nvidia_smi": [{"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}, {"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}], "torch_cuda": {"available": true, "version": "12.8", "devices": ["Tesla T4", "Tesla T4"], "total_mem_gb": [14.56, 14.56]}}
+[04:52:32] versions: {"python": "3.11.18", "torch": "2.11.0+cu128", "torchvision": "0.26.0+cu128", "diffusers": "0.33.1", "transformers": "4.46.2", "accelerate": "1.6.0", "cv2": "4.10.0", "numpy": "1.26.2", "PIL": "11.1.0", "imageio": "2.38.2", "safetensors": "0.8.0", "huggingface_hub": "0.30.2", "psutil": "7.2.2"}
+[04:52:32] gpu_test: {"bf16_matmul": {"ok": true, "seconds": 0.0877}, "arch_list": ["sm_75", "sm_80", "sm_86", "sm_90", "sm_100", "sm_120"], "error": null, "capability": "sm_75", "sdpa_bf16": true}
+[04:52:32] alignvid_commit: 9f3e48d76e19fa44e7ca93f0466ca92fb24775c2
+[04:52:32] all stages finished
+[04:52:33] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T09:43:36', 'repo_commit': '362af89', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[04:52:33] --- stage patch ---
+[04:52:33] patch dist-backend: applied=True already=False 
+[04:52:33] patch lowvram-text-encode-1: applied=True already=False 
+[04:52:33] patch lowvram-text-encode-2: applied=True already=False 
+[04:52:33] patch sdpa-query-chunks: applied=True already=False 
+[04:52:33] patch transformer-dtype-env: applied=True already=False 
+[04:52:33] patch fp32-residual: applied=True already=False 
+[04:52:33] all stages finished
+[04:52:34] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T09:43:36', 'repo_commit': '362af89', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[04:52:34] --- stage weights ---
+[04:52:34] weights: lllyasviel/FramePack_F1_I2V_HY_20250503 ...
+[04:54:42] weights: lllyasviel/FramePack_F1_I2V_HY_20250503 ok, 23.98 GB, 128.2 s
+[04:54:42] weights: hunyuanvideo-community/HunyuanVideo ...
+[04:55:53] weights: hunyuanvideo-community/HunyuanVideo ok, 15.14 GB, 71.0 s
+[04:55:56] weights: lllyasviel/flux_redux_bfl ...
+[04:56:23] weights: lllyasviel/flux_redux_bfl ok, 0.8 GB, 26.6 s
+[04:56:23] all stages finished
+[04:56:24] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T09:43:36', 'repo_commit': '362af89', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[04:56:24] --- stage length ---
+[04:56:24] vanilla/sample_240: start length=6.0 gpu_mem=6 control_scale=1.0
+[05:55:54] vanilla/sample_240: done in 3561.76 s, GPU peak 13037.0 MB, RSS 28.52 GB
+[05:55:54] length chosen: 6.0 s
+[05:55:54] all stages finished
+[05:55:55] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T09:43:36', 'repo_commit': '362af89', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[05:55:55] --- stage arms ---
+[05:55:55] vanilla/sample_240: exists, skipped
+[05:55:55] vanilla/sample_188: start length=6.0 gpu_mem=6 control_scale=1.0
+[06:51:26] vanilla/sample_188: done in 3321.95 s, GPU peak 13037.0 MB, RSS 28.82 GB
+[06:51:26] vanilla/sample_208: start length=6.0 gpu_mem=6 control_scale=1.0
+[07:46:41] vanilla/sample_208: done in 3314.72 s, GPU peak 13037.0 MB, RSS 28.372 GB
+[07:46:41] vanilla/sample_245: start length=6.0 gpu_mem=6 control_scale=1.0
+[08:43:39] vanilla/sample_245: done in 3418.41 s, GPU peak 13155.0 MB, RSS 28.525 GB
+[08:43:39] vanilla/sample_116: start length=6.0 gpu_mem=6 control_scale=1.0
+[09:38:59] vanilla/sample_116: done in 3319.46 s, GPU peak 13037.0 MB, RSS 28.586 GB
+[09:38:59] arms: 5/5 videos ok
+[09:38:59] all stages finished
+[09:39:00] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T09:43:36', 'repo_commit': '362af89', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[09:39:00] --- stage pack ---
+[09:39:00] packed results_kaggle_20261122_0939.zip (6.9 MB). Upload this file.
+[20:24:43] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T12:21:31', 'repo_commit': '631d170', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[20:24:43] --- stage env ---
+[20:24:51] env check 2026-11-22T20:24:43 host=kaggle
+[20:24:51] platform: Linux-6.18.55+-x86_64-with-glibc2.39
+[20:24:51] RAM: 31.35 GB
+[20:24:51] free disk: 2507.1 GB
+[20:24:51] GPU: {"nvidia_smi": [{"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}, {"name": "Tesla T4", "vram_total_mb": "15360", "driver": "580.178.04"}], "torch_cuda": {"available": true, "version": "12.8", "devices": ["Tesla T4", "Tesla T4"], "total_mem_gb": [14.56, 14.56]}}
+[20:24:51] versions: {"python": "3.11.18", "torch": "2.11.0+cu128", "torchvision": "0.26.0+cu128", "diffusers": "0.33.1", "transformers": "4.46.2", "accelerate": "1.6.0", "cv2": "4.10.0", "numpy": "1.26.2", "PIL": "11.1.0", "imageio": "2.38.2", "safetensors": "0.8.0", "huggingface_hub": "0.30.2", "psutil": "7.2.2"}
+[20:24:51] gpu_test: {"bf16_matmul": {"ok": true, "seconds": 0.083}, "arch_list": ["sm_75", "sm_80", "sm_86", "sm_90", "sm_100", "sm_120"], "error": null, "capability": "sm_75", "sdpa_bf16": true}
+[20:24:51] alignvid_commit: 9f3e48d76e19fa44e7ca93f0466ca92fb24775c2
+[20:24:51] all stages finished
+[20:24:53] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T12:21:31', 'repo_commit': '631d170', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[20:24:53] --- stage patch ---
+[20:24:53] patch dist-backend: applied=True already=False 
+[20:24:53] patch lowvram-text-encode-1: applied=True already=False 
+[20:24:53] patch lowvram-text-encode-2: applied=True already=False 
+[20:24:53] patch sdpa-query-chunks: applied=True already=False 
+[20:24:53] patch transformer-dtype-env: applied=True already=False 
+[20:24:53] patch fp32-residual: applied=True already=False 
+[20:24:53] all stages finished
+[20:24:53] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T12:21:31', 'repo_commit': '631d170', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[20:24:53] --- stage weights ---
+[20:24:53] weights: lllyasviel/FramePack_F1_I2V_HY_20250503 ...
+[20:27:34] weights: lllyasviel/FramePack_F1_I2V_HY_20250503 ok, 23.98 GB, 161.0 s
+[20:27:35] weights: hunyuanvideo-community/HunyuanVideo ...
+[20:29:00] weights: hunyuanvideo-community/HunyuanVideo ok, 15.14 GB, 84.7 s
+[20:29:00] weights: lllyasviel/flux_redux_bfl ...
+[20:29:21] weights: lllyasviel/flux_redux_bfl ok, 0.8 GB, 21.8 s
+[20:29:21] all stages finished
+[20:29:22] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T12:21:31', 'repo_commit': '631d170', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[20:29:22] --- stage length ---
+[20:29:22] length: already chosen 6.0
+[20:29:22] all stages finished
+[20:29:22] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T12:21:31', 'repo_commit': '631d170', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[20:29:22] --- stage arms ---
+[20:29:22] budget: alignvid/sample_240 starts with 38574 s left before the deadline (estimate 3418 s)
+[20:29:22] alignvid/sample_240: start length=6.0 gpu_mem=6 control_scale=1.35
+[21:31:23] alignvid/sample_240: done in 3711.66 s, GPU peak 13037.0 MB, RSS 29.034 GB
+[21:31:23] budget: alignvid/sample_188 starts with 34853 s left before the deadline (estimate 3712 s)
+[21:31:23] alignvid/sample_188: start length=6.0 gpu_mem=6 control_scale=1.35
+[22:28:41] alignvid/sample_188: done in 3438.03 s, GPU peak 13037.0 MB, RSS 28.132 GB
+[22:28:41] budget: alignvid/sample_208 starts with 31415 s left before the deadline (estimate 3712 s)
+[22:28:41] alignvid/sample_208: start length=6.0 gpu_mem=6 control_scale=1.35
+[23:26:03] alignvid/sample_208: done in 3441.56 s, GPU peak 13037.0 MB, RSS 28.43 GB
+[23:26:03] budget: alignvid/sample_245 starts with 27973 s left before the deadline (estimate 3712 s)
+[23:26:03] alignvid/sample_245: start length=6.0 gpu_mem=6 control_scale=1.35
+[00:25:12] alignvid/sample_245: done in 3548.96 s, GPU peak 13155.0 MB, RSS 28.284 GB
+[00:25:12] budget: alignvid/sample_116 starts with 24424 s left before the deadline (estimate 3712 s)
+[00:25:12] alignvid/sample_116: start length=6.0 gpu_mem=6 control_scale=1.35
+[01:22:28] alignvid/sample_116: done in 3436.48 s, GPU peak 13037.0 MB, RSS 28.351 GB
+[01:22:28] arms: 10/10 videos ok
+[01:22:28] all stages finished
+[01:22:29] run_pilot start root=/kaggle/tmp/pilot/pilot_package dry=False version={'packaged': '2026-11-22T12:21:31', 'repo_commit': '631d170', 'alignvid_commit': '9f3e48d76e19fa44e7ca93f0466ca92fb24775c2', 'protocol_frozen_commit': 'ec4d9e4', 'protocol_frozen_on': '2026-11-18'}
+[01:22:29] --- stage pack ---
