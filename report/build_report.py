@@ -57,6 +57,7 @@ def protocol_info():
             if len(cells) >= 3:
                 rows.append((cells[0], " | ".join(cells[1:-1]), cells[-1]))
     sec2 = t.split("## 2. Versions")[1].split("## 3.")[0]
+    sec2 = "\n".join(ln for ln in sec2.splitlines() if not ln.startswith("| Generation env |"))  # the real values follow in the hardware table
     return {"frozen_on": on.group(1).strip() if on else "?", "frozen_commit": at.group(1) if at else "?", "deviations": rows, "versions_md": sec2}
 
 
