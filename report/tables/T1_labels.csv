@@ -1,0 +1,11 @@
+id,arm,labeller,presence,onset_frame,persistence,placement,object_correct,preservation,primary_failure,secondary_tags,within_window,scorable,notes
+sample_240,vanilla,A,no,n.a.,n.a.,n.a.,n.a.,3,no_change,,n.a.,yes,
+sample_240,alignvid,A,no,n.a.,n.a.,n.a.,n.a.,3,no_change,,n.a.,yes,
+sample_188,vanilla,A,yes,5,1,out,wrong attribute,3,wrong_location,,no,yes,
+sample_188,alignvid,A,yes,4,1,out,wrong attribute,3,wrong_location,,no,yes,"person not seated in either chair, only hands and book visible at the right edge"
+sample_208,vanilla,A,yes,12,1,partial,wrong attribute,1,scene_drift,,no,yes,
+sample_208,alignvid,A,yes,12,1,partial,wrong attribute,1,scene_drift,,no,yes,
+sample_245,vanilla,A,yes,2,1,in,yes,3,none,,yes,yes,
+sample_245,alignvid,A,yes,1,1,in,yes,3,none,,yes,yes,
+sample_116,vanilla,A,no,n.a.,n.a.,n.a.,n.a.,3,no_change,,n.a.,yes,
+sample_116,alignvid,A,no,n.a.,n.a.,n.a.,n.a.,3,no_change,,n.a.,yes,

@@ -1,0 +1,17 @@
+{
+ "built": "2026-11-23T07:34:56",
+ "git": "7e0cc81",
+ "labellers": [
+  "A"
+ ],
+ "n_labelled": {
+  "A": 10
+ },
+ "cost": {
+  "median_wall_s": 3437.255,
+  "median_vanilla_s": 3321.95,
+  "median_alignvid_s": 3441.56,
+  "n": 10
+ },
+ "agreement": null
+}

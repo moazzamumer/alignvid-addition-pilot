@@ -1,0 +1,6 @@
+Configuration,videos,"GPU hours on the T4 (fp16, 6.0 s clips)",weeks of the 30 h/week Kaggle quota,note
+Pilot as run: 5 samples × 2 arms × 1 seed,10,10.0,0.3,measured: 9 h 49 min of Kaggle quota over two sessions
+(a) 40 samples × 2 arms × 3 seeds,240,229.0,7.6,
+(b) 129 addition samples × 2 arms × 1 seed,258,246.0,8.2,
+(c) no-edit arm added to (a),120,115.0,3.8,one no-edit video per sample and seed
+(c') no-edit arm added to (b),129,123.0,4.1,

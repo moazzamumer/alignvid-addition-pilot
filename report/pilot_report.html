@@ -1,0 +1,153 @@
+<!doctype html><html><head><meta charset='utf-8'><title>Pilot report</title><style>
+@page { size: A4 landscape; margin: 12mm 14mm; }
+body { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 10.5pt; color: #111; line-height: 1.35; }
+h1 { font-size: 17pt; margin: 0 0 4px 0; } h2 { font-size: 13.5pt; margin: 14px 0 6px 0; border-bottom: 1px solid #999; }
+h3 { font-size: 11.5pt; margin: 10px 0 4px 0; }
+table { border-collapse: collapse; margin: 6px 0 10px 0; font-size: 9pt; width: 100%; } table.narrow { width: auto; } td.wide { min-width: 240px; } th, td { border: 1px solid #bbb; padding: 3px 6px; vertical-align: top; text-align: left; }
+th { background: #eee; } code { font-family: 'DejaVu Sans Mono', monospace; font-size: 8.5pt; }
+.small { font-size: 9pt; color: #333; } .page { page-break-before: always; } img.panel { width: 100%; }
+.note { background: #f4f4f4; padding: 6px 8px; border-left: 3px solid #888; }
+</style></head><body>
+<h1>Five-sample feasibility pilot: object addition, FramePack-F1, vanilla vs AlignVid (γ = 1.35)</h1>
+<p class='small'>Protocol frozen 2026-11-18 (Asia/Karachi), commit <code>ec4d9e4</code>. Report built 2026-11-23 from commit <code>7e0cc81</code>. Labellers: A.</p>
+<p><strong>What ran.</strong> The whole pipeline, end to end, on Kaggle's free Tesla T4: data selection and intended regions (frozen 2026-11-18), ten generations (five samples, vanilla γ = 1.0 and AlignVid γ = 1.35, one seed, <code>--length 6.0</code>, same settings in both arms), 16-frame extraction, blind human labels by one labeller, a Grounding DINO check with thresholds fixed before the pilot, and the panel below. Generation took 9 h 49 min of GPU quota over two sessions, about 57 min per video; no video failed and all ten are scorable.</p>
+<p><strong>What did not run.</strong> The matched no-edit arm (optional in the protocol) was not generated, for time; it would cost about 5 h more. A second labeller was not available before submission, so no agreement estimate is given. No VLM judge was run. Running FramePack on the T4 needed three recorded source changes, the largest being fp16 arithmetic with an fp32 residual stream instead of the authors' bf16 (protocol §9, validated on one clip at PSNR 37.1 dB against bf16).</p>
+<p><strong>Headline from the labels.</strong> Per arm: one clean addition within the window (egg in cart), one object present but in the wrong place (person: only hands and a book at the frame edge, never seated), one scene replaced about 6 s in by a different scene that contains the object (stag), and two videos with no change at all (globe, tree). The two arms received the same label pattern on every sample; with n = 5 and one seed this describes the pilot only. The detector agreed with the human on presence in 9 of 10 videos; the one miss was the partially visible person.</p>
+<h2>Versions and hardware</h2><table class='narrow'>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AlignVid repo</td>
+<td>github.com/LAW1223/AlignVid, commit <code>9f3e48d76e19fa44e7ca93f0466ca92fb24775c2</code> (2026-05-29, single commit), submodule <code>external/AlignVid</code></td>
+</tr>
+<tr>
+<td>AlignVid paper</td>
+<td>arXiv 2512.01334 v2 (2026-05-28)</td>
+</tr>
+<tr>
+<td>OmitI2V</td>
+<td>HF <code>AIPeanutman/OmitI2V</code>, snapshot 2026-11-18 (367 records), <code>meta.json</code> sha256 <code>abc7099ba16ccb9f48d24b259f2343c48dc447f9907c511008df28a18723937d</code></td>
+</tr>
+<tr>
+<td>Backbone</td>
+<td>FramePack-F1 (<code>lllyasviel/FramePack_F1_I2V_HY_20250503</code>)</td>
+</tr>
+<tr>
+<td>Detector</td>
+<td>Grounding DINO tiny (<code>IDEA-Research/grounding-dino-tiny</code>), <code>model.safetensors</code> sha256 prefix <code>1a2412ef99bd74bc</code></td>
+</tr>
+<tr>
+<td>Measurement env</td>
+<td>Python 3.11.2, torch 2.15.0+cpu, transformers 5.23.0, opencv 5.1.0, numpy 2.4.6, pillow 13.0.0, huggingface_hub 2.4.0</td>
+</tr>
+<tr>
+<td>Generation env</td>
+<td>recorded in <code>logs/env_&lt;machine&gt;.txt</code> at step C1</td>
+</tr>
+<tr>
+<td>DyMoS</td>
+<td>not used; github.com/shoxedqBbB/DyMoS (includes Wan2.1 code as of 2026-11)</td>
+</tr>
+</tbody>
+</table><table class='narrow'><tr><th>Item</th><th>Value</th></tr><tr><td>Hardware used</td><td>Kaggle free tier, Tesla T4 15 GB (one of two), 31 GB RAM, driver 580.178.04; two headless sessions</td></tr><tr><td>Generation env</td><td>Python 3.11.18, torch 2.11.0+cu128, diffusers 0.33.1, transformers 4.46.2, accelerate 1.6.0, numpy 1.26.2</td></tr><tr><td>Transformer dtype</td><td>fp16 with fp32 residual stream (protocol §9, 2026-11-22); all other models fp16 as upstream</td></tr><tr><td>Protocol</td><td>frozen 2026-11-18 (Asia/Karachi), commit <code>ec4d9e4</code>; this report built from commit <code>7e0cc81</code> on 2026-11-23</td></tr></table>
+<div class='page'><img class='panel' src='panels/sample_240.png'></div><div class='page'><img class='panel' src='panels/sample_188.png'></div><div class='page'><img class='panel' src='panels/sample_208.png'></div><div class='page'><img class='panel' src='panels/sample_245.png'></div><div class='page'><img class='panel' src='panels/sample_116.png'></div>
+<div class='page'><h2>T1. Human labels per video</h2><table class=''><tr><th>id</th><th>arm</th><th>labeller</th><th>presence</th><th>onset_frame</th><th>persistence</th><th>placement</th><th>object_correct</th><th>preservation</th><th>primary_failure</th><th>secondary_tags</th><th>within_window</th><th>scorable</th><th>notes</th></tr><tr><td>sample_240</td><td>vanilla</td><td>A</td><td>no</td><td>n.a.</td><td>n.a.</td><td>n.a.</td><td>n.a.</td><td>3</td><td>no_change</td><td></td><td>n.a.</td><td>yes</td><td class='wide'></td></tr><tr><td>sample_240</td><td>alignvid</td><td>A</td><td>no</td><td>n.a.</td><td>n.a.</td><td>n.a.</td><td>n.a.</td><td>3</td><td>no_change</td><td></td><td>n.a.</td><td>yes</td><td class='wide'></td></tr><tr><td>sample_188</td><td>vanilla</td><td>A</td><td>yes</td><td>5</td><td>1</td><td>out</td><td>wrong attribute</td><td>3</td><td>wrong_location</td><td></td><td>no</td><td>yes</td><td class='wide'></td></tr><tr><td>sample_188</td><td>alignvid</td><td>A</td><td>yes</td><td>4</td><td>1</td><td>out</td><td>wrong attribute</td><td>3</td><td>wrong_location</td><td></td><td>no</td><td>yes</td><td class='wide'>person not seated in either chair, only hands and book visible at the right edge</td></tr><tr><td>sample_208</td><td>vanilla</td><td>A</td><td>yes</td><td>12</td><td>1</td><td>partial</td><td>wrong attribute</td><td>1</td><td>scene_drift</td><td></td><td>no</td><td>yes</td><td class='wide'></td></tr><tr><td>sample_208</td><td>alignvid</td><td>A</td><td>yes</td><td>12</td><td>1</td><td>partial</td><td>wrong attribute</td><td>1</td><td>scene_drift</td><td></td><td>no</td><td>yes</td><td class='wide'></td></tr><tr><td>sample_245</td><td>vanilla</td><td>A</td><td>yes</td><td>2</td><td>1</td><td>in</td><td>yes</td><td>3</td><td>none</td><td></td><td>yes</td><td>yes</td><td class='wide'></td></tr><tr><td>sample_245</td><td>alignvid</td><td>A</td><td>yes</td><td>1</td><td>1</td><td>in</td><td>yes</td><td>3</td><td>none</td><td></td><td>yes</td><td>yes</td><td class='wide'></td></tr><tr><td>sample_116</td><td>vanilla</td><td>A</td><td>no</td><td>n.a.</td><td>n.a.</td><td>n.a.</td><td>n.a.</td><td>3</td><td>no_change</td><td></td><td>n.a.</td><td>yes</td><td class='wide'></td></tr><tr><td>sample_116</td><td>alignvid</td><td>A</td><td>no</td><td>n.a.</td><td>n.a.</td><td>n.a.</td><td>n.a.</td><td>3</td><td>no_change</td><td></td><td>n.a.</td><td>yes</td><td class='wide'></td></tr></table>
+<h2>T2. Human vs detector disagreements</h2><p class='small'>Grounding DINO tiny, thresholds 0.45 / 0.35, presence = detected in ≥ 4 of 16 frames, fixed on dev images before the pilot (protocol §8). One row per disagreeing field; persistence counts as agreeing within 0.13 (two frames of 16).</p><table class=''><tr><th>id</th><th>arm</th><th>field</th><th>human</th><th>detector</th><th>detector facts</th><th>note</th></tr><tr><td>sample_188</td><td>vanilla</td><td>onset_frame</td><td>5</td><td>4</td><td></td><td>one frame apart; human took the later of two candidate frames (rubric rule); detector box at f04 scored 0.72</td></tr><tr><td>sample_188</td><td>vanilla</td><td>placement</td><td>out</td><td>partial</td><td></td><td>detector's best box (hands, book and forearm at the right frame edge) overlaps chair region A by 36 % of its area; by eye the visible person is outside both chair regions</td></tr><tr><td>sample_188</td><td>alignvid</td><td>presence</td><td>yes</td><td>no</td><td>3/16 frames detected (k = 4); best score 0.531; reference boxes 0; pre-existing boxes flagged 0</td><td>only hands and a book are visible; 'person' fires in 3 of 16 frames at 0.53, one frame short of k = 4. Partial visibility defeats the detector; the human calls it present</td></tr><tr><td>sample_188</td><td>alignvid</td><td>onset_frame</td><td>4</td><td>n.a.</td><td></td><td>human saw the hands at f04; the detector's first box is f05</td></tr><tr><td>sample_188</td><td>alignvid</td><td>persistence</td><td>1</td><td>n.a.</td><td></td><td>follows from the presence miss: 3 detections over 11 frames from its own onset</td></tr><tr><td>sample_188</td><td>alignvid</td><td>placement</td><td>out</td><td>n.a.</td><td></td><td></td></tr><tr><td>sample_245</td><td>vanilla</td><td>onset_frame</td><td>2</td><td>1</td><td></td><td>one frame apart; egg visible at f01 to the detector (0.76); human was not confident until f02</td></tr><tr><td>sample_245</td><td>vanilla</td><td>placement</td><td>in</td><td>partial</td><td></td><td>the egg is larger than the cart region: 42 % of the detector box lies inside it, below the 50 % 'in' threshold; the human judged 'in' because the egg sits in the cart. Rule-boundary case, see 'Where it broke down'</td></tr><tr><td>sample_245</td><td>alignvid</td><td>placement</td><td>in</td><td>partial</td><td></td><td>same as vanilla: 40 % of the box inside the cart region</td></tr></table>
+<p>Agreement on presence: 9 of 10 videos (the detector missed the partially visible person in alignvid/sample_188). All three onset disagreements are one frame apart. The two placement disagreements on sample_245 are the same rule-boundary case in both arms: the object is larger than its intended region. For sample_116 the query "tree" matched the trees already in the reference image in all 16 frames of both arms (32 boxes flagged pre-existing and not counted); without the pre-existing check the detector would have reported the tree as present in every frame.</p></div>
+<div class='page'><h2>T4. Runtime and memory per video</h2><p class='small'>One FramePack process per video on one Tesla T4; wall time includes model loading from local disk. FramePack reported <code>Free VRAM: 14.46 GB, High-VRAM Mode: False</code>, i.e. its low-VRAM path with <code>--gpu_mem 6</code>. Median wall time: vanilla 3322 s, AlignVid 3442 s.</p><table class='narrow'><tr><th>id</th><th>arm</th><th>control_scale</th><th>length (s)</th><th>frames</th><th>wall (s)</th><th>wall (min)</th><th>GPU peak (MiB, nvidia-smi)</th><th>RAM peak (GB, RSS)</th><th>dtype</th><th>start (UTC)</th></tr><tr><td>sample_240</td><td>vanilla</td><td>1.0</td><td>6.0</td><td>181</td><td>3561.76</td><td>59.4</td><td>13037.0</td><td>28.52</td><td>fp16</td><td>2026-11-22T04:56:24</td></tr><tr><td>sample_240</td><td>alignvid</td><td>1.35</td><td>6.0</td><td>181</td><td>3711.66</td><td>61.9</td><td>13037.0</td><td>29.034</td><td>fp16</td><td>2026-11-22T20:29:22</td></tr><tr><td>sample_188</td><td>vanilla</td><td>1.0</td><td>6.0</td><td>181</td><td>3321.95</td><td>55.4</td><td>13037.0</td><td>28.82</td><td>fp16</td><td>2026-11-22T05:55:55</td></tr><tr><td>sample_188</td><td>alignvid</td><td>1.35</td><td>6.0</td><td>181</td><td>3438.03</td><td>57.3</td><td>13037.0</td><td>28.132</td><td>fp16</td><td>2026-11-22T21:31:23</td></tr><tr><td>sample_208</td><td>vanilla</td><td>1.0</td><td>6.0</td><td>181</td><td>3314.72</td><td>55.2</td><td>13037.0</td><td>28.372</td><td>fp16</td><td>2026-11-22T06:51:26</td></tr><tr><td>sample_208</td><td>alignvid</td><td>1.35</td><td>6.0</td><td>181</td><td>3441.56</td><td>57.4</td><td>13037.0</td><td>28.43</td><td>fp16</td><td>2026-11-22T22:28:41</td></tr><tr><td>sample_245</td><td>vanilla</td><td>1.0</td><td>6.0</td><td>181</td><td>3418.41</td><td>57.0</td><td>13155.0</td><td>28.525</td><td>fp16</td><td>2026-11-22T07:46:41</td></tr><tr><td>sample_245</td><td>alignvid</td><td>1.35</td><td>6.0</td><td>181</td><td>3548.96</td><td>59.1</td><td>13155.0</td><td>28.284</td><td>fp16</td><td>2026-11-22T23:26:03</td></tr><tr><td>sample_116</td><td>vanilla</td><td>1.0</td><td>6.0</td><td>181</td><td>3319.46</td><td>55.3</td><td>13037.0</td><td>28.586</td><td>fp16</td><td>2026-11-22T08:43:39</td></tr><tr><td>sample_116</td><td>alignvid</td><td>1.35</td><td>6.0</td><td>181</td><td>3436.48</td><td>57.3</td><td>13037.0</td><td>28.351</td><td>fp16</td><td>2026-11-23T00:25:12</td></tr></table>
+<h2>T5. Failures and unscorable cases</h2><table>
+<thead>
+<tr>
+<th>#</th>
+<th>What</th>
+<th>When</th>
+<th>Symptom / error</th>
+<th>What was tried, outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Low-VRAM path, first prompt encode</td>
+<td>first Kaggle dry run, 2026-11-21</td>
+<td>CPU/GPU device mismatch: the text encoders were not moved to the GPU on the low-VRAM branch (free VRAM ≤ 60 GB), which the authors did not exercise</td>
+<td>two upstream FramePack lines added at both call sites (<code>lowvram-text-encode-1/2</code>); no computed value changes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>bf16 dry run, 1.0 s clip</td>
+<td>2026-11-21, 84 s into the run</td>
+<td><code>torch.OutOfMemoryError: Tried to allocate 30.33 GiB</code> in the attention fallback: the T4 (sm_75) has no fused bf16 attention kernel, so PyTorch materialised the full score matrix</td>
+<td>attention computed over query chunks of 512 (<code>sdpa-query-chunks</code>); same softmax(QKᵀ)V, different memory layout; clip then completes</td>
+</tr>
+<tr>
+<td>3</td>
+<td>bf16 dry run, 2.0 s clip</td>
+<td>2026-11-22</td>
+<td>completes (exit 0) but 8358 s wall for 73 frames; GPU peak 14.1 GB, RAM 24.9 GB. The T4 emulates bf16 arithmetic</td>
+<td>at this speed ten 6 s videos need ≈ 59 GPU-hours against a 30 h/week quota; switched the transformer to fp16 (<code>transformer-dtype-env</code>)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>plain fp16 dry run, 2.0 s clip</td>
+<td>2026-11-22</td>
+<td>exit 0 after 587 s, but the clip is all black; <code>invalid value encountered in cast</code> at sampling step 1, after which TeaCache skipped steps 2–24</td>
+<td>a forward-hook probe (<code>gen/nan_probe.py</code>) located fp16 overflow (&gt; 65 504) at the block-7 residual add, the block-7 gate × MLP product and the block-19 text MLP down-projection; those paths kept in fp32 (<code>fp32-residual</code>); clip then 1546 s, PSNR 37.1 dB vs the bf16 clip of the same seed</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Detector presence miss</td>
+<td>alignvid/sample_188</td>
+<td>hands and a book at the frame edge: "person" in 3 of 16 frames, k = 4</td>
+<td>reported as a human-vs-detector disagreement (T2); no threshold changed after seeing results</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Detector on an existing object</td>
+<td>sample_116, both arms</td>
+<td>"tree" boxed the trees already in the reference in every frame</td>
+<td>pre-existing check (IoU ≥ 0.5 to a reference-image box) flagged all 32 boxes; detector presence = no, matching the human</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Kaggle session limits</td>
+<td>sessions A and B</td>
+<td>12 h cap per headless run with no output kept if the cap is hit; 30 h/week GPU quota; one 2 h queue wait before session B (not charged)</td>
+<td>orchestrator made resumable (finished videos skipped, state restored from the previous session's output); a session time budget stops starting videos that would not finish; neither session reached it</td>
+</tr>
+</tbody>
+</table>
+<p>Unscorable cases: none. Every attempt, including the failed and slow dry runs, has a JSON log with wall time, peak GPU memory, peak RSS, the output tail and the library versions (<code>logs/kaggle/</code>).</p></div>
+<div class='page'><h2>Where it broke down</h2><p><strong>Labels</strong></p>
+<ul>
+<li>One labeller only. The second labeller planned in the protocol was not available before submission; raw agreement and κ cannot be reported.</li>
+<li>Partially visible subject. For the person prompt both arms produced hands and a book at the right frame edge, never a seated person. The rubric does not say when a part counts as the object. It was labelled presence = yes, object_correct = wrong attribute, primary failure = wrong_location, with a note; a rule for partial visibility should be written into the rubric.</li>
+<li>Scene replacement. For the stag prompt both arms cut, about 6 s in, to a different scene that contains a stag. Presence = yes is correct by the rubric, but on its own it would mislead; preservation = 1 and scene_drift carry the finding. Presence should always be read together with preservation and within_window.</li>
+<li>Persistence is defined from the onset, so a stag visible only in the last four frames has persistence 1.0 and within_window = no. Two fields are needed to see a late arrival; a single "appeared in window and stayed" field would read more easily.</li>
+<li><code>transient</code> has no n.a. value for absent objects; the labeller wrote yes for the four no-change videos. Add n.a.</li>
+<li>Clip length. FramePack's <code>--length 6.0</code> produces 181 frames at 24 fps, 7.5 s. The 16-frame sheet spans the whole clip, so the window "onset ≤ f03" still means the first quarter, but the protocol's seconds were not FramePack's seconds. State windows in frames of the sheet, as done, and record the actual duration.</li>
+</ul>
+<p><strong>Tools</strong></p>
+<ul>
+<li>Detector presence agreed with the human in 9 of 10 videos. The miss was partial visibility: three detections at ~0.53, one frame short of k = 4. Grounding DINO's confidence on a cropped person is low; a lower k would have caught it but was fixed in advance and was not changed.</li>
+<li>Placement rule boundary. The egg is larger than the cart region: 40–42 % of the detector box lies inside it, so the detector says partial while the human says in. The rule should be defined on the object's support (where it rests) or on the share of the region covered, or regions should be drawn to include the full extent the object may reach.</li>
+<li>The pre-existing check was decisive once: "tree" matched existing trees in every frame of both arms. Running the query on the reference image, as the protocol specifies, is what kept the detector honest.</li>
+<li>Onset differed by one frame in three videos; the human took the later frame when torn, as the rubric says. One frame of 16 is within the method's resolution.</li>
+<li>Region re-projection after FramePack's resize and centre crop worked for all ten videos (crop map stored in every detector JSON). One sample came out at 832×480 and the other four at 768×512, from FramePack's aspect-ratio buckets.</li>
+<li>Detector cost on a laptop CPU: 22 min and 11 min for five videos each (16 frames plus one reference image per video).</li>
+</ul>
+<p><strong>Compute</strong></p>
+<ul>
+<li>The T4 is below the backbone's assumptions. Three numerics changes were needed and are recorded as deviations: chunked attention (no numeric change), fp16 arithmetic, and an fp32 residual stream to stop fp16 overflow. Equivalence with bf16 was checked on one clip only (PSNR 37.1 dB); the authors did not run fp16.</li>
+<li>55–62 min per 6 s video, 13.0–13.2 GB GPU peak, 28–29 GB of 31 GB RAM. The RAM peak rules out a second process on the second T4 and rules out Colab free (12.7 GB RAM).</li>
+<li>Kaggle practicalities: 12 h per headless run, outputs kept only on clean completion, 30 h/week quota, queue waits. The orchestrator is resumable across sessions and stops starting videos near the deadline.</li>
+<li>Not run: the no-edit arm (≈ 5 h). The pilot therefore has no reference for how much the backbone changes a scene under a neutral prompt.</li>
+</ul></div>
+<div class='page'><h2>Deviations from the frozen protocol</h2><table class=''><tr><th>Date</th><th>Change</th><th>Why</th></tr><tr><td>2026-11-19</td><td><p>Detector query strings fixed, before any generation: 240 "world globe on a wooden stand", 188 "person", 208 "stag", 245 "jewel-encrusted egg", 116 "tree" (<code>data/detector_queries.json</code>).</p></td><td><p>§8 did not state the text query per sample; the <code>key</code> field in meta.json is an event phrase, not a noun phrase. Each query is the object noun phrase from the prompt.</p></td></tr><tr><td>2026-11-22</td><td><p>Generation runs on a remote Windows laptop (RTX 5050, 8 GB) operated by its owner from a self-contained package (<code>gen/</code>), one FramePack process per video (<code>gen/run_pilot.py</code>). Before generation the package replaces <code>backend='nccl'</code> with a gloo fallback in <code>models/FramePack/diffusers_helper/parallel_mgr.py</code> (one-process group init; recorded with sha256 in <code>logs/patches.json</code>). <code>--gpu_mem</code> is chosen by a dry-run ladder (6, then 7 GB) and <code>--length</code> by the §6 ladder (6.0, 3.0, 2.0), both applied identically to all arms.</p></td><td><p>No remote shell access to the GPU machine is possible (organisation laptop, no admin rights). NCCL does not exist on Windows; the inference script initialises torch.distributed before loading any model. No model, sampling or attention code is changed.</p></td></tr><tr><td>2026-11-22</td><td><p>Generation moved to Kaggle (Tesla T4 15 GB, 31 GB RAM, Python 3.11 venv) after the laptop proved inaccessible. Two further source patches, applied and sha256-logged by <code>gen/patches/apply_patches.py</code>: the low-VRAM branch of <code>inference_f1_json.py</code> gains the two upstream FramePack lines that place the text encoders on the GPU before each prompt encode (both call sites). <code>matplotlib</code> added to the requirements.</p></td><td><p>The RTX 4050 laptop (organisation device, no admin rights, no remote access) could not be used. On a ≤ 60 GB GPU the script takes its low-VRAM path, which the authors did not exercise; without the two lines the dry run fails with a CPU/GPU device mismatch. <code>matplotlib</code> is imported by the attention module but absent from the AlignVid requirements. No model, sampling or attention code is changed.</p></td></tr><tr><td>2026-11-22</td><td><p>Kaggle dry run (C3), bf16: the SDPA fallback in <code>attn_varlen_func</code> (<code>hunyuan_video_packed.py</code>) runs over query chunks of 512 on GPUs older than Ampere (<code>sdpa-query-chunks</code> patch; <code>ATTN_Q_CHUNK</code> overrides), the CUDA allocator uses expandable segments, and the <code>--gpu_mem</code> dry-run ladder is 2.0 s/6 GB, 2.0 s/8 GB, 1.0 s/8 GB.</p></td><td><p>The Tesla T4 (sm_75) has no fused bf16 attention kernel; the math fallback tried to allocate 30 GiB for the score matrix. Chunking over queries computes the same softmax(QKᵀ)V per query row; only memory layout changes. Result: the 2.0 s vanilla dry run of sample_240 completes in bf16 (8358 s wall, GPU peak 14.1 GB, RAM peak 24.9 GB; 73 frames at 24 fps).</p></td></tr><tr><td>2026-11-22</td><td><p>Transformer compute dtype on Kaggle is fp16 instead of the upstream bf16, with the residual stream, the gated residual updates and the three projections that write into the residual (MLP down-projections, single-block <code>proj_out</code>) kept or returned in fp32 (<code>transformer-dtype-env</code> and <code>fp32-residual</code> patches, <code>gen/patches/README.md</code>; located with <code>gen/nan_probe.py</code>). Same setting for every arm and sample; the dtype is written to every attempt log. The text encoders, image encoder and VAE were fp16 upstream already.</p></td><td><p>The T4 has no native bf16 arithmetic: at 8358 s per 2 s clip, ten 6 s videos would need ≈ 59 GPU-hours against a 30 h weekly quota. Plain fp16 gave an all-black clip (NaN from step 1); three probe runs placed the first overflow at the block-7 residual (|x| 29760 hidden / 51328 text, fp16 max 65504), then the block-7 gate × MLP product, then the block-19 text MLP down-projection output. With the patch the same 2 s dry run takes 1546 s wall (5.4× faster; GPU peak 13.0 GB, RAM peak 28.5 GB) and matches the bf16 clip of the same sample and seed at PSNR 37.1 dB (mean abs pixel difference 2.66/255). Both clips and the failed one are kept under <code>outputs/dryrun/</code> with their logs under <code>logs/kaggle/</code>. fp16 inference was not exercised by the authors; it is a numerics change, not a change to the model, sampling or the AlignVid key scaling.</p></td></tr><tr><td>2026-11-23</td><td><p>The 2026-11-22 entry describing generation on a Windows laptop did not take effect: no video was generated on that machine. All generation (C3 dry runs and both arms) ran on Kaggle under the entries that follow it, with <code>--length 6.0</code> and <code>--gpu_mem 6</code> for every arm; the §6 hardware line resolves to Kaggle (<code>logs/kaggle/env_kaggle.txt</code>). The <code>dist-backend</code> patch from that entry stays in the package (recorded in <code>logs/patches.json</code>) but selects NCCL on Linux, so it has no effect there.</p></td><td><p>Recorded so the deviations table reads correctly against the data.</p></td></tr></table>
+<p><b>Scope statement.</b> With n = 5 samples and one seed, no difference between arms can be estimated; the pilot validates the pipeline only.</p></div>
+</body></html>

@@ -1,0 +1,10 @@
+{
+ "vanilla/sample_188/onset_frame": "human took the later of two candidate frames (rubric rule); detector box at f04 scored 0.72",
+ "vanilla/sample_188/placement": "detector's best box (hands, book and forearm at the right frame edge) overlaps chair region A by 36 % of its area; by eye the visible person is outside both chair regions",
+ "alignvid/sample_188/presence": "only hands and a book are visible; 'person' fires in 3 of 16 frames at 0.53, one frame short of k = 4. Partial visibility defeats the detector; the human calls it present",
+ "alignvid/sample_188/onset_frame": "human saw the hands at f04; the detector's first box is f05",
+ "alignvid/sample_188/persistence": "follows from the presence miss: 3 detections over 11 frames from its own onset",
+ "vanilla/sample_245/onset_frame": "egg visible at f01 to the detector (0.76); human was not confident until f02",
+ "vanilla/sample_245/placement": "the egg is larger than the cart region: 42 % of the detector box lies inside it, below the 50 % 'in' threshold; the human judged 'in' because the egg sits in the cart. Rule-boundary case, see 'Where it broke down'",
+ "alignvid/sample_245/placement": "same as vanilla: 40 % of the box inside the cart region"
+}

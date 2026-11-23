@@ -1,0 +1,39 @@
+{
+ "script": "panel.py",
+ "args": {
+  "ids": null,
+  "arms": [
+   "vanilla",
+   "alignvid"
+  ],
+  "frames_root": "outputs",
+  "regions": "data/regions/regions.json",
+  "meta": "data/OmitI2V/meta.json",
+  "protocol": "protocol/pilot_protocol.md",
+  "labels": "labels/labels_A.csv",
+  "blind_map": "labels/blind_map.csv",
+  "out": "report/panels",
+  "pdf": "panel.pdf"
+ },
+ "git_hash": "7e0cc81",
+ "versions": {
+  "python": "3.11.2",
+  "cv2": "5.1.0",
+  "numpy": "2.4.6",
+  "PIL": "13.0.0",
+  "torch": "2.15.0+cpu",
+  "transformers": "5.23.0",
+  "torchvision": "0.29.2+cpu"
+ },
+ "host": "moazzam-hp",
+ "start": "2026-11-23T07:30:39",
+ "pages": 5,
+ "pdf": "report/panels/panel.pdf",
+ "labels_found": 10,
+ "freeze": "Protocol frozen 2026-11-18 (Asia/Karachi), commit ec4d9e4",
+ "end": "2026-11-23T07:30:41",
+ "wall_seconds": 1.71,
+ "peak_rss_mb": 411.9,
+ "ok": true,
+ "error": null
+}
