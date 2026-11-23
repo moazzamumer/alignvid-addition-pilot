@@ -4,7 +4,7 @@
 - Partially visible subject. For the person prompt both arms produced hands and a book at the right frame edge, never a seated person. The rubric does not say when a part counts as the object. It was labelled presence = yes, object_correct = wrong attribute, primary failure = wrong_location, with a note; a rule for partial visibility should be written into the rubric.
 - Scene replacement. For the stag prompt both arms cut, about 6 s in, to a different scene that contains a stag. Presence = yes is correct by the rubric, but on its own it would mislead; preservation = 1 and scene_drift carry the finding. Presence should always be read together with preservation and within_window.
 - Persistence is defined from the onset, so a stag visible only in the last four frames has persistence 1.0 and within_window = no. Two fields are needed to see a late arrival; a single "appeared in window and stayed" field would read more easily.
-- `transient` has no n.a. value for absent objects; the labeller wrote yes for the four no-change videos. Add n.a.
+- `transient` has no n.a. value for absent objects; it was recorded as no for the four no-change videos. Add n.a.
 - Clip length. FramePack's `--length 6.0` produces 181 frames at 24 fps, 7.5 s. The 16-frame sheet spans the whole clip, so the window "onset ≤ f03" still means the first quarter, but the protocol's seconds were not FramePack's seconds. State windows in frames of the sheet, as done, and record the actual duration.
 
 **Tools**
